@@ -1,0 +1,25 @@
+<div class="d-block flex-shrink-0 me-1">
+
+    <button mat-icon-button color="primary" (click)="add()" [matTooltip]="'signer.add' | viTranslate" tabindex="-1">
+        <span class="fas fa-user-plus"></span>
+    </button>
+    <button mat-icon-button color="warn" (click)="remove()" [matTooltip]="'signer.remove' | viTranslate" *ngIf="service.signer" tabindex="-1">
+        <span class="fas fa-user-minus"></span>
+    </button>
+</div>
+
+<div class="d-block flex-grow-1">
+
+    <mat-form-field class="d-block no-underline flex-grow-1">
+        <mat-label [innerHTML]="'signer.signer' | viTranslate"></mat-label>
+        <mat-select [(ngModel)]="service.signer">
+            <mat-select-trigger>
+                <span [innerHTML]="service.signer?.name"></span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let item of service.signers.collection;trackBy:service.signers.trackBy" [value]="item">
+                <p class="text-one-line" [innerHTML]="item.name"></p>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</div>

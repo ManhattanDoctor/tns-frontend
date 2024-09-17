@@ -1,0 +1,27 @@
+@use '@angular/material' as mat;
+@use '@ts-core/angular' as vi;
+@use '@ts-core/angular-material' as vi-mat;
+
+@use 'style/var' as var;
+
+mat-sidenav {
+    width: 230px;
+
+    mat-list-item {
+        &.mdc-list-item--disabled {
+            @include vi.mouse-inactive();
+        }
+        .mat-mdc-list-item-title {
+            color: inherit;
+            font-family: var.$font-family-title !important;
+        }
+    }
+    ::ng-deep {
+        .mat-drawer-inner-container {
+            display: flex;
+            flex-direction: column;
+            @include vi.scroll-no();
+        }
+    }
+
+}

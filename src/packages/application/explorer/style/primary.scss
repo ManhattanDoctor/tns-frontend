@@ -1,0 +1,197 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '@ts-core/angular' as vi;
+@use '@ts-core/angular-material' as vi-mat;
+
+@use 'style/var' as var;
+@use 'style/core' as core;
+
+@use 'components' as components;
+
+/*--------------------------------------------------------------------------
+//
+//  Core Theme
+//
+//-------------------------------------------------------------------------*/
+
+@include core.core();
+
+/*--------------------------------------------------------------------------
+//
+//  Mixins
+//
+//-------------------------------------------------------------------------*/
+
+@mixin set-color($theme) {
+    @include mat.core-color($theme);
+    @include mat.button-color($theme);
+    @include mat.button-color($theme);
+    @include mat.progress-bar-color($theme);
+    @include mat.progress-spinner-color($theme);
+    @include mat.tooltip-color($theme);
+    @include mat.input-color($theme);
+    @include mat.form-field-color($theme);
+    @include mat.select-color($theme);
+    @include mat.checkbox-color($theme);
+    @include mat.autocomplete-color($theme);
+    @include mat.dialog-color($theme);
+    @include mat.chips-color($theme);
+    @include mat.radio-color($theme);
+    @include mat.menu-color($theme);
+    @include mat.list-color($theme);
+    @include mat.paginator-color($theme);
+    @include mat.tabs-color($theme);
+    @include mat.badge-color($theme);
+    @include mat.table-color($theme);
+    @include mat.bottom-sheet-color($theme);
+    @include mat.button-toggle-color($theme);
+    @include mat.datepicker-color($theme);
+    @include mat.divider-color($theme);
+    @include mat.expansion-color($theme);
+    @include mat.icon-color($theme);
+    @include mat.sidenav-color($theme);
+    @include mat.sort-color($theme);
+
+    @include core.color($theme);
+    @include components.color($theme);
+}
+
+/*--------------------------------------------------------------------------
+//
+//  Primary Theme
+//
+//-------------------------------------------------------------------------*/
+
+$theme: mat.define-dark-theme(
+    (
+        color: (
+            primary: mat.define-palette(mat.$cyan-palette, 300, 100, 500, 400),
+            accent: mat.define-palette(mat.$gray-palette, 100, 50, 200),
+            warn: mat.define-palette(mat.$red-palette, 400)
+        ),
+        typography: var.$typography
+    )
+);
+
+$theme: vi-mat.theme-background-change($theme, 'body', #0b0b0b);
+$theme: vi-mat.theme-background-change($theme, 'card', #151515);
+$theme: vi-mat.theme-background-change($theme, 'hover', rgba(white, 0.03));
+$theme: vi-mat.theme-background-change($theme, 'dialog', #151515);
+$theme: vi-mat.theme-background-change($theme, 'background', #151515);
+$theme: vi-mat.theme-background-change($theme, 'unselected-chip', #141414);
+$theme: vi-mat.theme-background-change($theme, 'tooltip', #313131);
+// Seems doesn't work
+$theme: vi-mat.theme-background-change($theme, 'focused-button', #cc0000);
+//
+$theme: vi-mat.theme-foreground-change($theme, 'text', rgba(white, 0.64));
+$theme: vi-mat.theme-foreground-change($theme, 'divider', #313131);
+$theme: vi-mat.theme-foreground-change($theme, 'dividers', #313131);
+$theme: vi-mat.theme-foreground-change($theme, 'icon', rgba(white, 0.64));
+$theme: vi-mat.theme-foreground-change($theme, 'icons', rgba(white, 0.64));
+$theme: vi-mat.theme-foreground-change($theme, 'disabled-text', rgba(white, 0.4));
+$theme: vi-mat.theme-foreground-change($theme, 'secondary-text', rgba(white, 0.5));
+
+$theme: vi-mat.theme-foreground-change($theme, 'danger-text', #dc5e5e);
+$theme: vi-mat.theme-foreground-change($theme, 'success-text', #789865);
+$theme: vi-mat.theme-foreground-change($theme, 'warning-text', mat.get-color-from-palette(mat.$orange-palette, 400));
+
+@include mat.core-theme($theme);
+@include mat.button-theme($theme);
+@include mat.progress-bar-theme($theme);
+@include mat.tooltip-theme($theme);
+@include mat.input-theme($theme);
+@include mat.form-field-theme($theme);
+@include mat.select-theme($theme);
+@include mat.checkbox-theme($theme);
+@include mat.dialog-theme($theme);
+@include mat.chips-theme($theme);
+@include mat.radio-theme($theme);
+@include mat.menu-theme($theme);
+@include mat.list-theme($theme);
+@include mat.paginator-theme($theme);
+@include mat.tabs-theme($theme);
+@include mat.badge-theme($theme);
+@include mat.table-theme($theme);
+@include mat.bottom-sheet-theme($theme);
+@include mat.button-toggle-theme($theme);
+@include mat.datepicker-theme($theme);
+@include mat.divider-theme($theme);
+@include mat.progress-spinner-theme($theme);
+@include mat.expansion-theme($theme);
+@include mat.icon-theme($theme);
+@include mat.autocomplete-theme($theme);
+@include mat.icon-button-theme($theme);
+@include mat.sidenav-theme($theme);
+@include mat.sort-theme($theme);
+
+@include core.theme($theme, var.$typography);
+@include components.theme($theme, var.$typography);
+
+.dark-theme {
+}
+
+/*--------------------------------------------------------------------------
+//
+//  Light Theme
+//
+//-------------------------------------------------------------------------*/
+
+$light-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: mat.define-palette(mat.$cyan-palette, 500, 400, 700),
+            accent: mat.define-palette(mat.$yellow-palette, 100, 50, 200),
+            warn: mat.define-palette(mat.$red-palette, 400)
+        )
+    )
+);
+
+$light-theme: vi-mat.theme-background-change($light-theme, 'body', #f5f5f5);
+$light-theme: vi-mat.theme-background-change($light-theme, 'background', #ffffff);
+$light-theme: vi-mat.theme-background-change($light-theme, 'selected-button', #f5f5f5);
+
+$light-theme: vi-mat.theme-foreground-change($light-theme, 'text', #2a2a2a);
+$light-theme: vi-mat.theme-foreground-change($light-theme, 'border', #e7e7e7);
+$light-theme: vi-mat.theme-foreground-change($light-theme, 'danger-text', #df2b2b);
+$light-theme: vi-mat.theme-foreground-change($light-theme, 'success-text', #2e9342);
+
+.light-theme {
+    @include set-color($light-theme);
+}
+
+/*
+background: (
+    status-bar: map.get($grey-palette, 300),
+    app-bar:    map.get($grey-palette, 100),
+    background: map.get($grey-palette, 50),
+    hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+    card:       white,
+    dialog:     white,
+    disabled-button: rgba(black, 0.12),
+    raised-button: white,
+    focused-button: $dark-focused,
+    selected-button: map.get($grey-palette, 300),
+    selected-disabled-button: map.get($grey-palette, 400),
+    disabled-button-toggle: map.get($grey-palette, 200),
+    unselected-chip: map.get($grey-palette, 300),
+    disabled-list-option: map.get($grey-palette, 200),
+    tooltip: map.get($grey-palette, 700),
+);
+foreground: (
+    base:              black,
+    divider:           $dark-dividers,
+    dividers:          $dark-dividers,
+    disabled:          $dark-disabled-text,
+    disabled-button:   rgba(black, 0.26),
+    disabled-text:     $dark-disabled-text,
+    elevation:         black,
+    hint-text:         $dark-disabled-text,
+    secondary-text:    $dark-secondary-text,
+    icon:              rgba(black, 0.54),
+    icons:             rgba(black, 0.54),
+    text:              rgba(black, 0.87),
+    slider-min:        rgba(black, 0.87),
+    slider-off:        rgba(black, 0.26),
+    slider-off-active: rgba(black, 0.38),
+);
+*/

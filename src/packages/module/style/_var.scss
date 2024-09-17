@@ -1,0 +1,38 @@
+@use '@angular/material' as mat;
+
+/*--------------------------------------------------------------------------
+//
+//  Variables
+//
+//-------------------------------------------------------------------------*/
+
+$border-radius: 4px;
+$font-family-title: 'PT Sans Narrow', sans-serif;
+
+$typography: mat.define-typography-config(
+    $font-family: 'Roboto, Microsoft Yahei, Helvetica Neue, sans-serif',
+
+    $headline-6: mat.define-typography-level(96px, 1.4, 300),
+    $headline-5: mat.define-typography-level(72px, 1.4, 300),
+    $headline-4: mat.define-typography-level(56px, 1.4, 300),
+    $headline-3: mat.define-typography-level(45px, 1.4, 300),
+    $headline-2: mat.define-typography-level(34px, 1.4, 300),
+    $headline-1: mat.define-typography-level(24px, 1.4, 300),
+    $subtitle-2: mat.define-typography-level(18px, 1.4, 300),
+    $subtitle-1: mat.define-typography-level(16px, 1.4, 300),
+    $body-2: mat.define-typography-level(14px, 1.4, 500),
+    $body-1: mat.define-typography-level(14px, 1.4, 300),
+    $caption: mat.define-typography-level(12px, 1.4, 300),
+    $button: mat.define-typography-level(14px, 1.4, 400)
+);
+
+/*--------------------------------------------------------------------------
+//
+//  Mixins
+//
+//-------------------------------------------------------------------------*/
+
+@mixin highlight-text($color) {
+    color: $color !important;
+    text-shadow: $color 0px 0px 6px, $color 0px 0px 12px, $color 0px 0px 21px, $color 0px 0px 34px, $color 0px 0px 54px !important;
+}

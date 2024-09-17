@@ -1,0 +1,286 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@use '@ts-core/angular' as vi;
+@use '@ts-core/angular-material' as vi-mat;
+@use 'components' as components;
+
+/*--------------------------------------------------------------------------
+//
+//  Bootstrap
+//
+//-------------------------------------------------------------------------*/
+
+@import 'bootstrap/scss/functions';
+
+@import 'var';
+
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
+
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/helpers';
+@import 'bootstrap/scss/utilities/api';
+
+/*--------------------------------------------------------------------------
+//
+//  Methods
+//
+//-------------------------------------------------------------------------*/
+
+@mixin core() {
+    @include vi-mat.core();
+
+    // Common
+    *:focus {
+        outline: none;
+    }
+    html,
+    body {
+        height: 100%;
+    }
+    body {
+        overflow: hidden;
+    }
+    a {
+        text-decoration: inherit;
+    }
+    ul {
+        padding-left: 1rem !important;
+        margin-bottom: 0 !important;
+        li {
+            margin-bottom: 0;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    // Material
+    mat-table {
+        mat-row {
+            &.selected {
+            }
+        }
+        .mat-column-id {
+            max-width: 80px;
+        }
+        .mat-column-index {
+            max-width: 60px;
+        }
+        .mat-column-picture {
+            max-width: 48px;
+        }
+        .mat-column-time,
+        .mat-column-type,
+        .mat-column-date,
+        .mat-column-createdDate {
+            max-width: 140px;
+        }
+        .mat-column-login,
+        .mat-column-amount {
+            max-width: 180px;
+        }
+        .mat-column-model {
+            max-width: 220px;
+        }
+    }
+
+    // Dialog
+    .vi-window {
+        &.mode-VK {
+            mat-dialog-container {
+                vi-window-close-element {
+                    left: -16px;
+                    right: auto;
+                }
+            }
+        }
+    }
+    .vi-bottom-sheet {
+        &.mode-VK {
+            mat-bottom-sheet-container {
+                vi-window-close-element,
+                vi-window-expand-element {
+                    right: auto;
+                }
+                vi-window-close-element {
+                    left: 16px;
+                }
+                vi-window-expand-element {
+                    left: 56px;
+                }
+            }
+        }
+    }
+    // Text
+    .text-indent {
+        text-indent: 24px;
+    }
+    .font-family-monospace {
+        font-family: 'Courier New', monospace !important;
+    }
+    .font-family-title {
+        font-family: 'PT Sans Narrow', sans-serif !important;
+    }
+    // Color
+    .color-ONE {
+        &.text {
+            color: #f44336 !important;
+        }
+        &.border {
+            border-color: #f44336 !important;
+        }
+        &.background {
+            background-color: #f44336 !important;
+        }
+    }
+    .color-TWO {
+        &.text {
+            color: #ef6c00 !important;
+        }
+        &.border {
+            border-color: #ef6c00 !important;
+        }
+        &.background {
+            background-color: #ef6c00 !important;
+        }
+    }
+    .color-THREE {
+        &.text {
+            color: #fbc02d !important;
+        }
+        &.border {
+            border-color: #fbc02d !important;
+        }
+        &.background {
+            background-color: #fbc02d !important;
+        }
+    }
+    .color-FOUR {
+        &.text {
+            color: #4caf50 !important;
+        }
+        &.border {
+            border-color: #4caf50 !important;
+        }
+        &.background {
+            background-color: #4caf50 !important;
+        }
+    }
+    .color-FIVE {
+        &.text {
+            color: #40c4ff !important;
+        }
+        &.border {
+            border-color: #40c4ff !important;
+        }
+        &.background {
+            background-color: #40c4ff !important;
+        }
+    }
+    .color-SIX {
+        &.text {
+            color: #2196f3 !important;
+        }
+        &.border {
+            border-color: #2196f3 !important;
+        }
+        &.background {
+            background-color: #2196f3 !important;
+        }
+    }
+    .color-SEVEN {
+        &.text {
+            color: #b388ff !important;
+        }
+        &.border {
+            border-color: #b388ff !important;
+        }
+        &.background {
+            background-color: #b388ff !important;
+        }
+    }
+}
+
+@mixin color($theme, $text-primary-default: 700, $text-accent-default: 500) {
+    @include vi-mat.color($theme);
+    @include components.color($theme);
+
+    $warn: map.get($theme, 'warn');
+    $accent: map.get($theme, 'accent');
+    $primary: map.get($theme, 'primary');
+    $background: map.get($theme, 'background');
+    $foreground: map.get($theme, 'foreground');
+
+    $border-color: map.get($foreground, 'divider');
+
+    $text: map.get($foreground, 'text');
+    $base: map.get($foreground, 'base');
+    $text-warn: mat.get-color-from-palette($warn);
+    $text-primary: mat.get-color-from-palette($primary);
+
+    a {
+        color: rgba($text-primary, 0.64);
+    }
+    a:hover,
+    a:active {
+        color: $text-primary;
+    }
+
+    .text-glow-title {
+        text-shadow: 0 0 6px rgba($text-primary, 0.25), 0 0 30px rgba($text-primary, 0.5), 0 0 12px rgba($text-primary, 0.75), 0 0 21px rgba($text-primary, 1);
+    }
+    .hljs-string {
+        color: $text-primary;
+    }
+    .text-highlight {
+        &.error {
+            .hljs-string {
+                color: $text-warn !important;
+            }
+        }
+    }
+}
+
+@mixin typography($typography) {
+    @include vi-mat.typography($typography);
+    @include components.typography($typography);
+
+    // Text
+    .font-size-huge {
+        font-size: 72px !important;
+        line-height: 1 !important;
+    }
+    // Mixins
+    @include media-breakpoint-down(md) {
+        .mat-headline-4 {
+            font-size: 42px;
+        }
+        .mat-headline-3 {
+            font-size: 36px;
+        }
+        .mat-headline-1 {
+            font-size: 20px;
+        }
+        .mat-subtitle-2 {
+            font-size: 18px;
+        }
+    }
+}
+
+@mixin theme($theme, $typography) {
+    $color: mat.get-color-config($theme);
+    @if $color != null {
+        @include color($theme);
+    }
+    @if $typography != null {
+        @include typography($typography);
+    }
+}

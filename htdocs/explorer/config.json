@@ -1,0 +1,51 @@
+{
+    "version": "1.0.0-1",
+    "versionDate": "2024-09-17T14:57:56.686Z",
+    "language": "ru",
+    "isProduction": "false",
+    "languages": [
+        { "name": "Русский", "locale": "ru" }
+    ],
+    "assetsUrl": "assets/",
+    "assetsCdnUrl": "assets/",
+    "apiUrl1": "https://api.occultist.one",
+    "apiUrl": "http://localhost:3005",
+ 
+    "theme": "light",
+    "themes": [
+        {
+            "name": "light",
+            "isDark": false,
+            "styles": {
+                "border": "#313131",
+                "borderBase": "#000000",
+                "background": "#ffffff",
+
+                "color-ONE": "#f44336",
+                "color-TWO": "#ef6c00",
+                "color-THREE": "#fbc02d",
+                "color-FOUR": "#4caf50",
+                "color-FIVE": "#40c4ff",
+                "color-SIX": "#2196f3",
+                "color-SEVEN": "#b388ff"
+            }
+        },
+        {
+            "name": "dark",
+            "isDark": true,
+            "styles": {
+                "border": "#313131",
+                "borderBase": "#FFFFFF",
+                "background": "#151515",
+
+                "color-ONE": "#f44336",
+                "color-TWO": "#ef6c00",
+                "color-THREE": "#fbc02d",
+                "color-FOUR": "#4caf50",
+                "color-FIVE": "#40c4ff",
+                "color-SIX": "#2196f3",
+                "color-SEVEN": "#b388ff"
+            }
+        }
+    ]
+}

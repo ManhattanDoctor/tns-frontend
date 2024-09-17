@@ -1,0 +1,42 @@
+@use '@angular/material' as mat;
+
+/*
+@use 'shared/component/user-picture/_user-picture.component' as user-picture;
+@use 'shared/component/user-container/_user-container.component' as user-container;
+@use 'feature/file/component/files-chips/_files-chips.component' as files-chips;
+@use 'shared/component/arrow-highlight/_arrow-highlight.component' as arrow-highlight;
+@use 'feature/conversation/component/conversation-message/_conversation-message.component' as conversation-message;
+@use 'feature/openai/component/openai-agent-message/_openai-agent-message.component' as openai-agent-message;
+*/
+
+@mixin color($theme) {
+    /*
+    @include user-picture.color($theme);
+    @include user-container.color($theme);
+
+    @include files-chips.color($theme);
+    @include arrow-highlight.color($theme);
+    @include openai-agent-message.color($theme);
+    @include conversation-message.color($theme);
+    */
+}
+@mixin typography($typography) {
+    /*
+    @include user-picture.typography($typography);
+    @include user-container.typography($typography);
+
+    @include files-chips.typography($typography);
+    @include arrow-highlight.typography($typography);
+    @include openai-agent-message.typography($typography);
+    @include conversation-message.typography($typography);
+    */
+}
+@mixin theme($theme, $typography) {
+    $color: mat.get-color-config($theme);
+    @if $color != null {
+        @include color($theme);
+    }
+    @if $typography != null {
+        @include typography($typography);
+    }
+}

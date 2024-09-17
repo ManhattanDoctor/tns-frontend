@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <base href="/" />
+
+        <link rel="icon" type="image/png" sizes="512x512" href="assets/icon/512.png" />
+        <link rel="icon" type="image/png" sizes="256x256" href="assets/icon/256.png" />
+        <link rel="icon" type="image/png" sizes="128x128" href="assets/icon/128.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/icon/32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/icon/16.png" />
+        <link rel="icon" type="image/ico" sizes="any" href="assets/icon/32.ico" />
+
+        <link rel="icon" type="image/x-icon" href="assets/icon/32.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/icon/32.ico" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/icon/180.png" />
+        <link rel="manifest" href="manifest.webmanifest" />
+
+        <meta name="theme-color" content="#010101" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>TNS Explorer</title>
+        <meta
+            name="description"
+            property="description"
+            content=""
+        />       
+    </head>
+
+    <body class="dark-theme mat-app-background mat-typography">
+        <script type="text/javascript" src="common.js"></script>
+        <script>
+            themeSet('tns-explorer-theme');
+        </script>
+
+        <root id="root">
+            <div class="application-preloader-container position-relative">
+                <div class="application-preloader position-absolute">
+                    <div class="cssload-ball"></div>
+                </div>
+                <div class="application-preloader-image-container d-flex w-100 h-100 justify-content-center align-items-center position-absolute">
+                    <img class="application-preloader-image" alt="logo" style="width: 256px; height: 256px" src="assets/icon/256Dark.png" />
+                </div>
+            </div>
+        </root>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+@use '@angular/material' as mat;
+
+// @use '../pages/shell/_shell-page.component' as shell-page;
+
+@mixin color($theme) {
+    // @include shell-page.color($theme);
+}
+@mixin typography($typography) {
+    // @include shell-page.typography($typography);
+}
+@mixin theme($theme, $typography) {
+    $color: mat.get-color-config($theme);
+    @if $color != null {
+        @include color($theme);
+    }
+    @if $typography != null {
+        @include typography($typography);
+    }
+}
