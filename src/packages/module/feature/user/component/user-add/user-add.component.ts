@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { ISerializable } from '@ts-core/common';
+import { Component, ViewContainerRef } from '@angular/core';
+import { ISerializable, ISignature } from '@ts-core/common';
 import { IWindowContent, ViewUtil, WindowService } from '@ts-core/angular';
-import { ISigner, WalletService } from '@core/service';
 import { RegExpUtil } from '@common/util';
+import { IUserAddDto } from '@common/hlf/acl/transport';
+import { Variables as AclVariables } from '@common/hlf/acl';
+import { WalletService } from '@core/service';
 import * as _ from 'lodash';
 
 @Component({
-    templateUrl: 'signer-add.component.html',
+    templateUrl: 'user-add.component.html',
 })
-export class SingerAddComponent extends IWindowContent implements OnInit, ISerializable<ISigner> {
+export class UserAddComponent extends IWindowContent implements ISerializable<IUserAddDto> {
     // --------------------------------------------------------------------------
     //
     //  Constants
@@ -23,9 +25,11 @@ export class SingerAddComponent extends IWindowContent implements OnInit, ISeria
     //
     // --------------------------------------------------------------------------
 
-    public name: string;
     public account: string;
     public accounts: Array<string>;
+    public signature: ISignature;
+    public inviterUid: string;
+    public walletSecond: string;
 
     // --------------------------------------------------------------------------
     //
@@ -36,6 +40,8 @@ export class SingerAddComponent extends IWindowContent implements OnInit, ISeria
     constructor(container: ViewContainerRef, private windows: WindowService, private wallet: WalletService) {
         super(container);
         ViewUtil.addClasses(container.element, 'd-flex flex-column');
+
+        this.inviterUid = AclVariables.platform.uid;
     }
 
     // --------------------------------------------------------------------------
@@ -53,13 +59,15 @@ export class SingerAddComponent extends IWindowContent implements OnInit, ISeria
         this.account = _.first(this.accounts);
     }
 
-    public serialize(): ISigner {
-        return { uid: this.account, name: this.name };
+    public serialize(): IUserAddDto {
+        return { signature: this.signature, inviterUid: this.inviterUid, wallet: this.walletSecond };
     }
 
     public async submit(): Promise<void> {
-        await this.windows.question('signer.add.confirmation').yesNotPromise;
-        this.emit(SingerAddComponent.EVENT_ADDED);
+        this.signature = await this.wallet.sign(AclVariables.signature.message, Date.now().toString(), this.account);
+        console.log(this.signature);
+        await this.windows.question('user.add.confirmation').yesNotPromise;
+        this.emit(UserAddComponent.EVENT_ADDED);
     }
 
     // --------------------------------------------------------------------------
@@ -68,7 +76,10 @@ export class SingerAddComponent extends IWindowContent implements OnInit, ISeria
     //
     // --------------------------------------------------------------------------
 
-    public get accountPattern(): RegExp {
+    public get uidPattern(): RegExp {
+        return RegExpUtil.USER_UID_REG_EXP;
+    }
+    public get addressPattern(): RegExp {
         return RegExpUtil.ETH_ADDRESS_REG_EXP;
     }
 }

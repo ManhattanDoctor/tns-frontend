@@ -1,13 +1,15 @@
-import { Logger, ObservableData, Loadable, LoadableEvent, LoadableStatus, PromiseHandler } from '@ts-core/common';
-import { SignerService } from '@feature/singer/service';
+import { Logger, ObservableData, Loadable, LoadableEvent, LoadableStatus } from '@ts-core/common';
 import { HlfApiMonitor } from './HlfApiMonitor';
 import { Injectable } from '@angular/core';
 import { WindowService, NotificationService } from '@ts-core/angular';
 import { Client } from '@common/platform/api';
 import { HlfApiClient } from './HlfApiClient';
+import { NativeWindowService } from '@ts-core/frontend';
+import { WalletService } from './WalletService';
 import * as _ from 'lodash';
+import { SignerService } from './SignerService';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ApiService extends Loadable {
     // --------------------------------------------------------------------------
     //
@@ -27,11 +29,11 @@ export class ApiService extends Loadable {
     //
     // --------------------------------------------------------------------------
 
-    constructor(logger: Logger, windows: WindowService, notifications: NotificationService, signer: SignerService) {
+    constructor(logger: Logger, nativeWindow: NativeWindowService, windows: WindowService, notifications: NotificationService, wallet: WalletService, signer: SignerService) {
         super();
 
         this._api = new Client(logger);
-        this._hlf = new HlfApiClient(logger, signer);
+        this._hlf = new HlfApiClient(logger, wallet, signer);
         this._monitor = new HlfApiMonitor(logger, windows, notifications);
     }
 

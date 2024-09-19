@@ -1,0 +1,45 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '@ts-core/angular-material' as vi-mat;
+
+@mixin color($theme) {
+    $color: mat.get-color-config($theme);
+    $primary: map.get($color, 'primary');
+    $foreground: map.get($color, 'foreground');
+    $background: map.get($color, 'background');
+
+    shell-page {
+        mat-sidenav {
+            mat-list-item {
+                &.active {
+                    color: mat.get-color-from-palette($primary);
+                    background-color: map.get($background, 'hover');
+                }
+            }
+        }
+    }
+}
+
+@mixin typography($typography) {
+    shell-page {
+        mat-sidenav {
+            mat-list-item {
+                .mat-mdc-list-item-icon {
+                    font-size: mat.font-size($typography, 'subtitle-2');
+                }
+                .mat-mdc-list-item-title {
+                    @include vi-mat.typography-level($typography, 'subtitle-2', false);
+                }
+            }
+        }
+    }
+}
+@mixin theme($theme, $typography) {
+    $color: mat.get-color-config($theme);
+    @if $color != null {
+        @include color($theme);
+    }
+    @if $typography != null {
+        @include typography($typography);
+    }
+}

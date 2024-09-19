@@ -2,6 +2,7 @@ import { Component, EventEmitter, ElementRef, Output, Input } from '@angular/cor
 import { RouterService, ApiService } from '@core/service';
 import { ViewUtil } from '@ts-core/angular';
 import { IKeyAsymmetric, Destroyable, Transport, TransportCommand, TransportCommandAsync } from '@ts-core/common';
+import { UserAddCommand } from '@feature/user/transport';
 
 @Component({
     selector: 'shell-header',
@@ -44,6 +45,10 @@ export class ShellHeaderComponent extends Destroyable {
 
     public back(): void {
         this.router.navigate('/');
+    }
+
+    public async test(): Promise<void> {
+        this.transport.send(new UserAddCommand());
     }
 
     /*

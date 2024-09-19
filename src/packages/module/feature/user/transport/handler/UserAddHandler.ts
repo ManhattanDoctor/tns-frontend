@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ExtendedError, Logger, Transport, TransportCommandHandler } from '@ts-core/common';
-import { SingerAddCommand } from '../SignerAddCommand';
+import { UserAddCommand } from '../UserAddCommand';
 import { WindowConfig, WindowService } from '@ts-core/angular';
-import { SingerAddComponent } from '../../component';
-import { SignerService } from '@core/service';
+import { UserAddComponent } from '../../component';
 import { takeUntil } from 'rxjs';
 import * as _ from 'lodash';
 
 @Injectable({ providedIn: 'root' })
-export class SingerAddHandler extends TransportCommandHandler<void, SingerAddCommand> {
+export class UserAddHandler extends TransportCommandHandler<void, UserAddCommand> {
     // --------------------------------------------------------------------------
     //
     //  Constructor
     //
     // --------------------------------------------------------------------------
 
-    constructor(logger: Logger, transport: Transport, private signer: SignerService, private windows: WindowService) {
-        super(logger, transport, SingerAddCommand.NAME);
+    constructor(logger: Logger, transport: Transport, private windows: WindowService) {
+        super(logger, transport, UserAddCommand.NAME);
     }
 
     // --------------------------------------------------------------------------
@@ -26,7 +25,7 @@ export class SingerAddHandler extends TransportCommandHandler<void, SingerAddCom
     // --------------------------------------------------------------------------
 
     protected async execute(): Promise<void> {
-        let windowId = 'signerAdd';
+        let windowId = 'UserAdd';
         if (this.windows.setOnTop(windowId)) {
             return Promise.reject('Already opened');
         }
@@ -34,13 +33,13 @@ export class SingerAddHandler extends TransportCommandHandler<void, SingerAddCom
         let config = new WindowConfig(true, false, 450);
         config.id = windowId;
 
-        let content = this.windows.open(SingerAddComponent, config) as SingerAddComponent;
+        let content = this.windows.open(UserAddComponent, config) as UserAddComponent;
         content.events.pipe(takeUntil(content.destroyed)).subscribe(async event => {
             switch (event) {
-                case SingerAddComponent.EVENT_ADDED:
+                case UserAddComponent.EVENT_ADDED:
                     content.isDisabled = true;
                     try {
-                        await this.signer.add(content.serialize());
+                        // await this.User.add(content.serialize());
                     } catch (error: any) {
                         this.windows.info(ExtendedError.create(error).message);
                     } finally {

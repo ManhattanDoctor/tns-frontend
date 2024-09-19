@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IUIDable, IKeyAsymmetric, LoggerWrapper, Logger, MapCollection, ValidateUtil, TransformUtil } from '@ts-core/common';
+import { IUIDable, LoggerWrapper, Logger, MapCollection, TransformUtil } from '@ts-core/common';
 import { CookieService } from '@ts-core/angular';
 import * as _ from 'lodash';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SignerService extends LoggerWrapper {
     // --------------------------------------------------------------------------
     //
@@ -95,6 +95,5 @@ export class SignerService extends LoggerWrapper {
 }
 
 export interface ISigner extends IUIDable {
-    key: IKeyAsymmetric;
     name: string;
 }

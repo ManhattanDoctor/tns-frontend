@@ -4,15 +4,16 @@
 //
 //--------------------------------------------------------------------------
 
-// import { UserModule } from '@feature/user';
+import { UserModule } from '@feature/user';
 
 export let LAZY_MODULES: Array<any> = [
-    /*
+
     {
         id: UserModule.ID,
         commands: UserModule.COMMANDS,
         path: async () => (await import('@feature/user')).UserModule
     },
+    /*
     {
         id: ProfileModule.ID,
         commands: ProfileModule.COMMANDS,

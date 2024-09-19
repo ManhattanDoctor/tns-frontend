@@ -1,8 +1,8 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { Transport, DestroyableContainer } from '@ts-core/common';
 import { ViewUtil, WindowService } from '@ts-core/angular';
-import { SignerService } from '../../service';
 import { SingerAddCommand } from '../../transport';
+import { SignerService } from '@core/service';
 
 @Component({
     selector: 'signer-info',
@@ -17,7 +17,7 @@ export class SingerInfoComponent extends DestroyableContainer {
 
     constructor(container: ViewContainerRef, private transport: Transport, private windows: WindowService, public service: SignerService) {
         super();
-        ViewUtil.addClasses(container.element, 'd-flex align-items-center pt-1 ps-2 pe-3 pb-1');
+        ViewUtil.addClasses(container.element, 'd-flex align-items-center');
     }
 
     // --------------------------------------------------------------------------
@@ -31,7 +31,7 @@ export class SingerInfoComponent extends DestroyableContainer {
     }
 
     public async remove(): Promise<void> {
-        await this.windows.question('signer.removeConfirmation').yesNotPromise;
+        await this.windows.question('signer.remove.confirmation').yesNotPromise;
         this.service.remove(this.service.signer);
     }
 }

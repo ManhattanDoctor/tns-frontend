@@ -2,54 +2,49 @@
     <mat-sidenav
         class="sidenav-left no-scroll background border-right"
         position="start"
-        [mode]="isNeedSide ? 'side' : 'over'"
         [opened]="isShowMenu"
         (openedChange)="isShowMenu = $event"
+        [mode]="isNeedSide ? 'side' : 'over'"
     >
-        <signer-info class="border-bottom flex-shrink-0"></signer-info>
 
-        <mat-nav-list class="pt-0 flex-grow-1 vertical-scroll-only">
-            <vi-select-list [list]="menu"></vi-select-list>
+        <div class="p-2 border-bottom flex-shrink-0">
+            <signer-info></signer-info>
+        </div>
+
+        <mat-nav-list class="pt-0 flex-grow-1 scroll-vertical">
+            <ng-container *ngFor="let item of menu?.collection">
+                <mat-list-item [ngClass]="item.isSelected ? item.selectedClassName : item.className" *ngIf="item.isEnabled" (click)="menu.actionItem(item)">
+                    <span class="me-1 mt-1" [ngClass]="item.iconId" *ngIf="item.iconId" matListItemIcon></span>
+                    <span [innerHTML]="item.label" matListItemTitle></span>
+                </mat-list-item>
+            </ng-container>
         </mat-nav-list>
 
-        <p
-            class="d-block flex-shrink-0 border-top mat-caption p-2 text-one-line text-center mouse-inactive mt-auto"
-            tabindex="-1"
-            [innerHTML]="'general.footer' | viTranslate"
-        ></p>
+        <p class="d-block flex-shrink-0 border-top mat-caption p-2 text-one-line text-center mouse-inactive mt-auto" vi-translate="general.footer"></p>
     </mat-sidenav>
 
     <mat-sidenav-content #container class="vertical-scroll-only" [vi-scroll-check]="300" (limitExceed)="isNeedScrollButton = $event" style="overflow-x: hidden">
         <div class="container-fluid h-100 g-0 ps-0 pe-0 d-flex flex-column">
             <div class="background border-bottom flex-shrink-0">
                 <shell-header class="container flex-shrink-0 my-3" [isNeedMenu]="isNeedSide" (openMenu)="toggleMenu()"></shell-header>
+                <router-outlet></router-outlet>
             </div>
-
-            <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>
 
     <mat-sidenav
-        class="sidenav-right no-scroll background"
+        class="sidenav-right no-scroll background border-left"
         mode="over"
         position="end"
         [opened]="isShowNotifications"
         (openedChange)="isShowNotifications = $event"
     >
-        <p class="p-2 mat-headline text-one-line flex-shrink-0 text-center border-bottom mouse-inactive" [vi-translate]="'general.notifications'"></p>
-        <div class="flex-grow-1 vertical-scroll-only background-body">
+        <p
+            class="p-2 mat-subtitle-2 font-family-title text-one-line flex-shrink-0 text-center border-bottom mouse-inactive"
+            vi-translate="general.notifications"
+        ></p>
+        <div class="flex-grow-1 scroll-vertical background-body">
             <vi-notification class="border-bottom" *ngFor="let item of notificationItems" [config]="item"></vi-notification>
         </div>
     </mat-sidenav>
 </mat-sidenav-container>
-
-<button
-    mat-icon-button
-    class="background border border-primary-hover mat-elevation-z4"
-    color="primary"
-    (click)="scrollTop()"
-    style="z-index: 1; right: 22px; bottom: 12px; position: fixed"
-    *ngIf="isNeedScrollButton"
->
-    <span class="fas fa-chevron-up pb-1"></span>
-</button>

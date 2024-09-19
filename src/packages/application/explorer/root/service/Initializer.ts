@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApplicationInitializer } from '@core/lib';
-import { ApiService, SettingsService } from '@core/service';
+import { ApiService, SettingsService, SignerService } from '@core/service';
 import { EXPLORER_LOCALE_PREFIXES, LocaleProject,  } from '@common/platform/api/locale';
 import { NotificationService, PlatformService, RouterBaseService } from '@ts-core/angular';
 import { LanguageService } from '@ts-core/frontend';

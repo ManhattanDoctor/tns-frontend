@@ -1,16 +1,18 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { NotificationService, ViewUtil } from '@ts-core/angular';
-import { ShellBaseComponent } from '@ts-core/angular-material';
-import { RouterService, SettingsService } from '@core/service';
-import { takeUntil } from 'rxjs/operators';
+import { ScrollCommand, ScrollService, ShellBaseComponent } from '@ts-core/angular-material';
+import { ApiService, RouterService } from '@core/service';
 import { ShellMenu } from './service';
 import { MatSidenavContent } from '@angular/material/sidenav';
+import { UserAddCommand } from '@common/hlf/acl/transport';
 import { Transport } from '@ts-core/common';
+import { takeUntil } from 'rxjs';
 
 @Component({
-    templateUrl: './shell-page.component.html',
-    styleUrls: ['./shell-page.component.scss']
+    selector: 'shell-page',
+    styleUrl: './shell-page.component.scss',
+    templateUrl: './shell-page.component.html'
 })
 export class ShellPageComponent extends ShellBaseComponent implements AfterViewInit {
     //--------------------------------------------------------------------------
@@ -30,28 +32,19 @@ export class ShellPageComponent extends ShellBaseComponent implements AfterViewI
     //--------------------------------------------------------------------------
 
     constructor(
+        element: ElementRef,
         notifications: NotificationService,
         breakpointObserver: BreakpointObserver,
-        element: ElementRef,
-        private router: RouterService,
+        private scroll: ScrollService,
         private transport: Transport,
-        public settings: SettingsService,
+        private router: RouterService,
         public menu: ShellMenu
     ) {
         super(notifications, breakpointObserver);
         ViewUtil.addClasses(element, 'd-block w-100 h-100');
 
         router.completed.pipe(takeUntil(this.destroyed)).subscribe(this.routerCompletedHandler);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    // 	Protected Methods
-    //
-    //--------------------------------------------------------------------------
-
-    public async ngAfterViewInit(): Promise<void> {
-        this.initialize();
+        // transport.getDispatcher<MenuToggleEvent>(MenuToggleEvent.NAME).pipe(takeUntil(this.destroyed)).subscribe(() => this.toggleMenu());
     }
 
     //--------------------------------------------------------------------------
@@ -69,13 +62,28 @@ export class ShellPageComponent extends ShellBaseComponent implements AfterViewI
         }
     }
 
+    // --------------------------------------------------------------------------
+    //
+    // 	Protected Properties
+    //
+    // --------------------------------------------------------------------------
+
+    protected get sideMediaQueryToCheck(): string {
+        return `(min-width: ${992}px)`;
+    }
+
     //--------------------------------------------------------------------------
     //
     // 	Public Methods
     //
     //--------------------------------------------------------------------------
 
+    public async ngAfterViewInit(): Promise<void> {
+        this.initialize();
+        this.scroll.container = this.container;
+    }
+
     public scrollTop(): void {
-        this.container.scrollTo({ top: 0, behavior: 'smooth' });
+        this.transport.send(new ScrollCommand());
     }
 }

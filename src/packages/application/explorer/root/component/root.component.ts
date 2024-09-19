@@ -3,7 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { LoadingService, LoadingServiceManager, LanguageService, ThemeService, Assets } from '@ts-core/frontend';
 import { Transport, TransportHttpCommandAsync, LoggerWrapper, Logger, LoggerLevel, LoadableEvent } from '@ts-core/common';
 import { WindowService, ApplicationComponent, ViewUtil } from '@ts-core/angular';
-import { ApiService, RouterService, SettingsService } from '@core/service';
+import { ApiService, RouterService, SettingsService, WalletService } from '@core/service';
 import { AssetsCdnProvider, ErrorUtil } from '@core/lib';
 import { Language } from '@ts-core/language';
 import { filter, map, merge, takeUntil } from 'rxjs';
@@ -37,6 +37,7 @@ export class RootComponent extends ApplicationComponent<SettingsService> {
         private transport: Transport,
 
         private api: ApiService,
+        private wallet: WalletService,
         private router: RouterService,
         private windows: WindowService,
 
@@ -78,7 +79,7 @@ export class RootComponent extends ApplicationComponent<SettingsService> {
         manager.addLoadable(this.language, this.api.monitor, this.api.hlf, this.api.api, this.router);
 
         // Api
-        merge(this.api.events)
+        merge(this.api.api.events)
             .pipe(
                 filter(event => event.type === LoadableEvent.ERROR),
                 map(<T>(event) => event.data as TransportHttpCommandAsync<T>),
@@ -111,7 +112,7 @@ export class RootComponent extends ApplicationComponent<SettingsService> {
     }
 
     protected async readyHandler(): Promise<void> {
-
+        // await this.api.initialize(this.settings.apiUrl);
     }
 }
 

@@ -16,7 +16,7 @@ import {
 } from '@ts-core/angular';
 import { VIMatModule } from '@ts-core/angular-material';
 import { SettingsBaseService } from '@ts-core/frontend';
-import { ApiService, CoreInitializer, PipeService, RouterService, SettingsService } from './service';
+import { CoreInitializer, PipeService, RouterService, SettingsService } from './service';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DateUtil, Transport, ILogger, Logger } from '@ts-core/common';
@@ -76,8 +76,6 @@ export class CoreModule {
                         return item;
                     }
                 },
-
-                ApiService,
 
                 { provide: MomentDatePipe, useClass: MomentDatePipe, },
                 { provide: PipeBaseService, useExisting: PipeService, },

@@ -1,7 +1,7 @@
 import { Pipe } from '@angular/core';
 import { DestroyableContainer, MathUtil } from '@ts-core/common';
 import { FinancePipe, PrettifyPipe } from '@ts-core/angular';
-import { Variables as AuctionVariables } from '@project/common/hlf/auction';
+import { Variables as AuctionVariables } from '@common/hlf/auction';
 import * as _ from 'lodash';
 
 @Pipe({

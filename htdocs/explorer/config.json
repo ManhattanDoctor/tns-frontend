@@ -1,6 +1,6 @@
 {
-    "version": "1.0.0-1",
-    "versionDate": "2024-09-17T14:57:56.686Z",
+    "version": "1.0.0-2",
+    "versionDate": "2024-09-19T12:08:15.004Z",
     "language": "ru",
     "isProduction": "false",
     "languages": [
@@ -11,7 +11,7 @@
     "apiUrl1": "https://api.occultist.one",
     "apiUrl": "http://localhost:3005",
  
-    "theme": "light",
+    "theme": "dark",
     "themes": [
         {
             "name": "light",

@@ -1,18 +1,32 @@
-import { Logger, ITransportCryptoManager, TransportCryptoManager, ITransportCommand, TransportCommand, ITransportCommandOptions, TransportCommandAsync } from '@ts-core/common';
+import { Logger, TransportCryptoManager, ITransportCommand, TransportCommand, ITransportCommandOptions, TransportCommandAsync, ISignature } from '@ts-core/common';
 import { ILedgerRequestRequest, LedgerApiClient } from '@hlf-explorer/common';
-import { SignerService } from '@feature/singer/service';
+import { SignerService } from '@core/service';
+import { Metamask, TransportCryptoManagerMetamaskFrontend } from '@ts-core/crypto-metamask-frontend';
 import * as _ from 'lodash';
+import { NativeWindowService } from '@ts-core/frontend';
+import { User } from '../../../../externals/common/hlf/acl';
+import { WalletService } from './WalletService';
 
 export class HlfApiClient extends LedgerApiClient {
+
+    // --------------------------------------------------------------------------
+    //
+    // 	Properties
+    //
+    // --------------------------------------------------------------------------
+
+    private manager: TransportCryptoManagerMetamaskFrontend;
+
     // --------------------------------------------------------------------------
     //
     // 	Constructor
     //
     // --------------------------------------------------------------------------
 
-    constructor(logger: Logger, private signer: SignerService) {
+    constructor(logger: Logger, wallet: WalletService, private signer: SignerService) {
         super(logger);
         this.settings.isHandleError = this.settings.isHandleLoading = true;
+        this.manager = new TransportCryptoManagerMetamaskFrontend(wallet.wallet);
     }
 
     // --------------------------------------------------------------------------
@@ -28,10 +42,9 @@ export class HlfApiClient extends LedgerApiClient {
             return item;
         }
 
-        let manager: ITransportCryptoManager = null;
-
-        item.options['userId'] = signer.uid;
-        item.options['signature'] = await TransportCryptoManager.sign(command, manager, signer.key);
+        let signature = await TransportCryptoManager.sign(command, this.manager, { privateKey: signer.uid, publicKey: signer.uid });
+        item.options['userId'] = User.createUid(signer.uid);
+        item.options['signature'] = signature;
         return item;
     }
 }

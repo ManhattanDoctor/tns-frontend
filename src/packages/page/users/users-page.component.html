@@ -4,7 +4,7 @@
             <span class="fas fa-users ms-2 me-2 my-1"></span>
 
             <p class="mat-title flex-grow-1 text-one-line mouse-inactive">
-                <span [innerHTML]="'user.users' | viTranslate"></span>
+                <span vi-translate="user.users"></span>
             </p>
 
             <!--
@@ -14,7 +14,7 @@
             -->
 
             <button class="flex-shrink-0" mat-icon-button (click)="items.reload()" [matTooltip]="'general.refresh' | viTranslate" [disabled]="items?.isLoading">
-                <span class="fas fa-sync" [class.fa-spin]="items?.isLoading"></span>
+                <mat-icon fontSet="fas" fontIcon="fa-sync" [class.fa-spin]="items?.isLoading"></mat-icon>
             </button>
         </div>
 
