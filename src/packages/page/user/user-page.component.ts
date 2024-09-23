@@ -27,6 +27,6 @@ export class UserPageComponent extends DestroyableContainer {
     constructor(element: ElementRef, route: ActivatedRoute) {
         super();
         ViewUtil.addClasses(element, 'd-block container px-3 px-lg-4 pb-3 pt-4 pb-lg-4');
-        route.data.pipe(takeUntil(this.destroyed)).subscribe(data => this.user = data.user);
+        route.data.pipe(takeUntil(this.destroyed)).subscribe(data => this.user = data.item);
     }
 }

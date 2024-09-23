@@ -7,9 +7,9 @@ import { TransportLazyModule } from '@ts-core/angular';
 import { Transport } from '@ts-core/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { NicknameOpenHandler, NicknameTransferHandler } from './transport/handler';
-import { NicknameOpenCommand, NicknameTransferCommand } from './transport';
-import { NicknameContainerComponent, NicknameDetailsComponent, NicknameTransferComponent } from './component';
+import { AuctionOpenHandler } from './transport/handler';
+import { AuctionOpenCommand } from './transport';
+import { AuctionContainerComponent, AuctionDetailsComponent } from './component';
 
 //--------------------------------------------------------------------------
 //
@@ -18,7 +18,7 @@ import { NicknameContainerComponent, NicknameDetailsComponent, NicknameTransferC
 //--------------------------------------------------------------------------
 
 const providers = [];
-const declarations = [NicknameContainerComponent, NicknameTransferComponent, NicknameDetailsComponent];
+const declarations = [AuctionContainerComponent, AuctionDetailsComponent];
 
 @NgModule({
     imports: [CommonModule, MatButtonModule, MatFormFieldModule, MatProgressBarModule, MatSelectModule, SharedModule],
@@ -26,15 +26,15 @@ const declarations = [NicknameContainerComponent, NicknameTransferComponent, Nic
     declarations,
     providers
 })
-export class NicknameModule extends TransportLazyModule<NicknameModule> {
+export class AuctionModule extends TransportLazyModule<AuctionModule> {
     //--------------------------------------------------------------------------
     //
     // 	Public Static Properties
     //
     //--------------------------------------------------------------------------
 
-    public static ID = 'NicknameModule';
-    public static COMMANDS = [NicknameOpenCommand.NAME, NicknameTransferCommand.NAME];
+    public static ID = 'AuctionModule';
+    public static COMMANDS = [AuctionOpenCommand.NAME];
 
     //--------------------------------------------------------------------------
     //
@@ -42,7 +42,7 @@ export class NicknameModule extends TransportLazyModule<NicknameModule> {
     //
     //--------------------------------------------------------------------------
 
-    constructor(reference: NgModuleRef<NicknameModule>, transport: Transport, open: NicknameOpenHandler, transfer: NicknameTransferHandler) {
+    constructor(reference: NgModuleRef<AuctionModule>, transport: Transport, open: AuctionOpenHandler) {
         super(reference, transport);
     }
 
@@ -53,10 +53,10 @@ export class NicknameModule extends TransportLazyModule<NicknameModule> {
     //--------------------------------------------------------------------------
 
     public get id(): string {
-        return NicknameModule.ID;
+        return AuctionModule.ID;
     }
 
     public get commands(): Array<string> {
-        return NicknameModule.COMMANDS;
+        return AuctionModule.COMMANDS;
     }
 }

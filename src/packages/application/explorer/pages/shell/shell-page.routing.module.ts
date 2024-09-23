@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RouterService } from '@core/service';
 import { ShellPageComponent } from './shell-page.component';
 import { UserResolver } from '@feature/user/guard';
-import { CoinResolver } from '@feature/coin/guard';
+import { AuctionResolver } from '@feature/auction/guard';
 import { NicknameResolver } from '@feature/nickname/guard';
 
 const routes: Routes = [
@@ -24,14 +24,23 @@ const routes: Routes = [
                 loadChildren: () => import('@page/nicknames/nicknames-page.module')
             },
             {
+                path: RouterService.AUCTIONS_URL,
+                loadChildren: () => import('@page/auctions/auctions-page.module')
+            },
+            {
                 path: `${RouterService.USER_URL}/:id`,
-                resolve: { user: UserResolver },
+                resolve: { item: UserResolver },
                 loadChildren: () => import('@page/user/user-page.module')
             },
             {
                 path: `${RouterService.NICKNAME_URL}/:id`,
-                resolve: { nickname: NicknameResolver },
+                resolve: { item: NicknameResolver },
                 loadChildren: () => import('@page/nickname/nickname-page.module')
+            },
+            {
+                path: `${RouterService.AUCTION_URL}/:id`,
+                resolve: { item: AuctionResolver },
+                loadChildren: () => import('@page/auction/auction-page.module')
             },
             { path: '**', redirectTo: RouterService.USERS_URL }
         ]

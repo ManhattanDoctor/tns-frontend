@@ -28,7 +28,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Client } from '@common/platform/api';
 import * as _ from 'lodash';
-import { NicknameMapCollection, UserMapCollection } from './lib';
+import { AuctionMapCollection, NicknameMapCollection, UserMapCollection } from './lib';
 import { TransportSocket } from '@ts-core/socket-client';
 
 //--------------------------------------------------------------------------
@@ -116,6 +116,7 @@ export class CoreModule {
                 },
 
                 UserMapCollection,
+                AuctionMapCollection,
                 NicknameMapCollection
             ]
         };

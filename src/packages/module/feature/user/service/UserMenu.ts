@@ -3,6 +3,7 @@ import { LanguageService } from '@ts-core/frontend';
 import { Injectable } from '@angular/core';
 import { Transport } from '@ts-core/common';
 import { CoinTransferCommand } from '@feature/coin/transport';
+import { NicknameTransferCommand } from '@feature/nickname/transport';
 import * as _ from 'lodash';
 
 @Injectable({ providedIn: 'root' })
@@ -33,6 +34,10 @@ export class UserMenu extends ListItems<IListItem<void>> {
 
         item = new ListItem('coin.transfer.transfer', UserMenu.COIN_TRANSFER, null, 'fas fa-coins me-2');
         item.action = (item, user) => transport.send(new CoinTransferCommand({ to: user.uid }));
+        this.add(item)
+
+        item = new ListItem('nickname.transfer.transfer', UserMenu.COIN_TRANSFER, null, 'fas fa-right-left me-2');
+        item.action = (item, user) => transport.send(new NicknameTransferCommand({ to: user.uid }));
         this.add(item)
 
         this.complete();

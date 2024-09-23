@@ -8,7 +8,7 @@
         "balance": "Баланс",
         "balances": "Балансы",
         "transfer": {
-            "transfer": "Перевести",
+            "transfer": "Перевести токены",
             "confirmation": "Вы уверены, что хотите перевести токены?"
         },
         "coinId": {

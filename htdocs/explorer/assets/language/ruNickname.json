@@ -4,6 +4,10 @@
         "nickname": "Имя",
         "nicknames": "Имена",
         "ownerUid": "Владелец",
-        "parentUid": "Унаследовано"
+        "parentUid": "Унаследовано",
+        "transfer": {
+            "transfer": "Передать имя",
+            "confirmation": "Вы уверены, что хотите передать имя?"
+        }
     }
 }

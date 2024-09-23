@@ -1,6 +1,20 @@
 {
-    "auctions": {
+    "auction": {
         "auction": "Аукцион",
-        "auctions": "Аукционы"
+        "auctions": "Аукционы",
+        "price": "Последняя ставка",
+        "nickname": "⇛nickname.nickname",
+        "created": "Создан",
+        "type": {
+            "type": "Тип",
+            "PRIMARY": "Первичный",
+            "SECONDARY": "Вторичный"
+        },
+        "status": {
+            "status": "Статус",
+            "FAILED": "Неудачно",
+            "COMPLETED": "Успешно",
+            "IN_PROGRESS": "В процессе"
+        }
     }
 }

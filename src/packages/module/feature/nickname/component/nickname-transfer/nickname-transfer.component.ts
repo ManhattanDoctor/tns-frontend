@@ -2,14 +2,13 @@ import { Component, ViewContainerRef } from '@angular/core';
 import { ISerializable } from '@ts-core/common';
 import { IWindowContent, ViewUtil, WindowService } from '@ts-core/angular';
 import { RegExpUtil } from '@common/util';
-import { ICoinTransferDto } from '@common/hlf/auction/transport';
-import { Variables as AuctionVariables } from '@common/hlf/auction';
+import { INicknameTransferDto } from '@common/hlf/auction/transport';
 import * as _ from 'lodash';
 
 @Component({
-    templateUrl: 'coin-transfer.component.html',
+    templateUrl: 'nickname-transfer.component.html',
 })
-export class CoinTransferComponent extends IWindowContent implements ISerializable<ICoinTransferDto> {
+export class NicknameTransferComponent extends IWindowContent implements ISerializable<INicknameTransferDto> {
     // --------------------------------------------------------------------------
     //
     //  Constants
@@ -25,8 +24,6 @@ export class CoinTransferComponent extends IWindowContent implements ISerializab
     // --------------------------------------------------------------------------
 
     public to: string;
-    public amount: number;
-    public coinUid: string;
 
     // --------------------------------------------------------------------------
     //
@@ -37,9 +34,6 @@ export class CoinTransferComponent extends IWindowContent implements ISerializab
     constructor(container: ViewContainerRef, private windows: WindowService) {
         super(container);
         ViewUtil.addClasses(container.element, 'd-flex flex-column');
-
-        this.amount = 1000;
-        this.coinUid = AuctionVariables.coin.uid;
     }
 
     // --------------------------------------------------------------------------
@@ -48,13 +42,13 @@ export class CoinTransferComponent extends IWindowContent implements ISerializab
     //
     // --------------------------------------------------------------------------
 
-    public serialize(): ICoinTransferDto {
-        return { to: this.to, amount: this.amount.toString(), coinUid: this.coinUid };
+    public serialize(): INicknameTransferDto {
+        return { to: this.to };
     }
 
     public async submit(): Promise<void> {
-        await this.windows.question('coin.transfer.confirmation').yesNotPromise;
-        this.emit(CoinTransferComponent.EVENT_SUBMITTED);
+        await this.windows.question('nickname.transfer.confirmation').yesNotPromise;
+        this.emit(NicknameTransferComponent.EVENT_SUBMITTED);
     }
 
     // --------------------------------------------------------------------------
