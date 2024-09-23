@@ -1,6 +1,6 @@
 import { Logger, getUid, LoggerWrapper, UID } from '@ts-core/common';
 import { ApiService } from './ApiService';
-import { IHlfObjectDetails } from '@common/platform/api';
+import { Client, IHlfObjectDetails } from '@common/platform/api';
 import { Assets } from '@ts-core/frontend';
 import { Injectable } from '@angular/core';
 import { PipeService } from './PipeService';
@@ -23,7 +23,7 @@ export class HlfObjectDetailsService extends LoggerWrapper {
     //
     // --------------------------------------------------------------------------
 
-    constructor(logger: Logger, private pipe: PipeService, private api: ApiService) {
+    constructor(logger: Logger, private pipe: PipeService, private api: Client) {
         super(logger);
         this.map = new Map();
     }
@@ -34,6 +34,11 @@ export class HlfObjectDetailsService extends LoggerWrapper {
     //
     // --------------------------------------------------------------------------
 
+    public async id(item: UID): Promise<number> {
+        let { id } = await this.get(item);
+        return id;
+    }
+    
     public async picture(item: UID): Promise<string> {
         let { picture } = await this.get(item);
         return picture;
@@ -51,7 +56,7 @@ export class HlfObjectDetailsService extends LoggerWrapper {
         }
         let promise = new Promise<IHlfObjectDetails>(async resolve => {
             try {
-                resolve(await this.api.api.hlfObjectDetailsGet(uid));
+                resolve(await this.api.hlfObjectDetailsGet(uid));
             }
             catch (error) {
                 resolve({ id: null, name: this.pipe.language.translate('user.anonymous'), type: getType(uid), picture: Assets.getIcon('72') });

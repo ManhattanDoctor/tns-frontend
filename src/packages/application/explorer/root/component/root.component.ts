@@ -76,7 +76,7 @@ export class RootComponent extends ApplicationComponent<SettingsService> {
 
     private initializeObservers(): void {
         let manager = this.addDestroyable(new LoadingServiceManager(this.loading));
-        manager.addLoadable(this.language, this.api.monitor, this.api.hlf, this.api.api, this.router);
+        manager.addLoadable(this.language, this.api.socket, this.api.hlf, this.api.api, this.router);
 
         // Api
         merge(this.api.api.events)
@@ -112,7 +112,7 @@ export class RootComponent extends ApplicationComponent<SettingsService> {
     }
 
     protected async readyHandler(): Promise<void> {
-        // await this.api.initialize(this.settings.apiUrl);
+        await this.api.initialize(this.settings.apiUrl);
     }
 }
 

@@ -5,6 +5,7 @@ import { UsersPageComponent } from './users-page.component';
 const routes: Routes = [{ path: '', component: UsersPageComponent }];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class UsersPageRoutingModule { }
+export class UsersPageRoutingModule {}

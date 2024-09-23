@@ -15,8 +15,8 @@ export class PictureGravatarDirective extends PictureDirective {
     //--------------------------------------------------------------------------
 
     protected _size: number = 200;
-    protected _rating: PictureGravatarRating = PictureGravatarRating.G;
-    protected _display: PictureGravatarDisplay = PictureGravatarDisplay.IDENTICON;
+    protected _rating: string = PictureGravatarRating.G;
+    protected _display: string = PictureGravatarDisplay.IDENTICON;
 
     @Input()
     public isNeedHash: boolean = true;
@@ -83,11 +83,11 @@ export class PictureGravatarDirective extends PictureDirective {
     //
     //--------------------------------------------------------------------------
 
-    public get rating(): PictureGravatarRating {
+    public get rating(): string {
         return this._rating;
     }
     @Input()
-    public set rating(value: PictureGravatarRating) {
+    public set rating(value: string) {
         if (value === this._rating) {
             return;
         }
@@ -95,11 +95,11 @@ export class PictureGravatarDirective extends PictureDirective {
         this.commitValueProperties();
     }
 
-    public get display(): PictureGravatarDisplay {
+    public get display(): string {
         return this._display;
     }
     @Input()
-    public set display(value: PictureGravatarDisplay) {
+    public set display(value: string) {
         if (value === this._display) {
             return;
         }

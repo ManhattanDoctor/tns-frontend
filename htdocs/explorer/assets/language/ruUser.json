@@ -2,8 +2,17 @@
     "user": {
         "uid": "UID",
         "user": "Пользователь",
+        "users": "Пользователи",
         "wallet": "Второй кошелек",
+        "created": "Создан",
+        "address": "Адрес",
+        "nickname": "⇛nickname.nickname",
         "inviterUid": "Пригласивший",
+        "status": {
+            "status": "Статус",
+            "ACTIVE": "Активен",
+            "NON_ACTIVE": "Не активен"
+        },
         "add": {
             "add": "Добавить",
             "confirmation": "Вы уверены, что хотите добавить пользователя?"

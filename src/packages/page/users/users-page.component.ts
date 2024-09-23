@@ -1,72 +1,44 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { DestroyableContainer } from '@ts-core/common';
-import { ICdkTableCellEvent, ICdkTableSettings, ViewUtil } from '@ts-core/angular';
-import { UserRemovedEvent, UserAddedEvent } from '@common/transport/event/user';
-import { takeUntil } from 'rxjs';
-import { merge, delay } from 'rxjs';
-import { DateUtil } from '@ts-core/common';
-import { Transport } from '@ts-core/common';
-import { LedgerUser } from '@common/ledger/user';
-import { ApiService, PipeService } from '@core/service';
-import { UserMapCollection, UserTableSettings } from '@core/lib';
+import { ViewUtil } from '@ts-core/angular';
+import { CDK_TABLE_COLUMN_MENU_NAME, ICdkTableCellEvent, MenuTriggerForDirective } from '@ts-core/angular-material';
+import { Transport, DestroyableContainer } from '@ts-core/common';
+import { HlfObjectDetailsService, PipeService } from '@core/service';
 import { UserAddCommand, UserOpenCommand } from '@feature/user/transport';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { UserMapCollection, UserTableSettings } from '@core/lib';
+import { User } from '@common/platform';
 import { UserMenu } from '@feature/user/service';
+import { NicknameOpenCommand } from '@feature/nickname/transport';
 import * as _ from 'lodash';
-import { title } from 'process';
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { MenuTriggerForDirective } from '@shared/directive';
+import { idText } from 'typescript';
 
 @Component({
-    templateUrl: 'users-page.component.html',
+    templateUrl: './users-page.component.html'
 })
 export class UsersPageComponent extends DestroyableContainer {
-    // --------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     // 	Properties
     //
-    // --------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
 
     @ViewChild(MenuTriggerForDirective, { static: true })
     public trigger: MenuTriggerForDirective;
-    
-    public settings: ICdkTableSettings<LedgerUser>;
+    public settings: UserTableSettings;
 
-    // --------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     // 	Constructor
     //
-    // --------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
 
-    constructor(
-        element: ElementRef,
-        api: ApiService,
-        pipe: PipeService,
-        private transport: Transport,
-        public menu: UserMenu,
-        public items: UserMapCollection
-    ) {
+    constructor(container: ElementRef, pipe: PipeService, hlfObject: HlfObjectDetailsService, private transport: Transport, public menu: UserMenu, public items: UserMapCollection) {
         super();
-        ViewUtil.addClasses(element, 'd-block');
+        ViewUtil.addClasses(container, 'd-block container px-3 px-lg-4 pb-3 pt-4 pb-lg-4');
 
-        this.settings = new UserTableSettings(pipe);
+        this.settings = new UserTableSettings(pipe, hlfObject)
         if (!this.items.isDirty) {
-            this.items.reload();
+            this.items.load();
         }
-
-        merge(api.monitor.getEventDispatcher(UserAddedEvent.NAME), api.monitor.getEventDispatcher(UserRemovedEvent.NAME))
-            .pipe(delay(DateUtil.MILISECONDS_SECOND), takeUntil(this.destroyed))
-            .subscribe(() => this.items.reload());
-    }
-
-    // --------------------------------------------------------------------------
-    //
-    // 	Public Methods
-    //
-    // --------------------------------------------------------------------------
-
-    public async add(): Promise<void> {
-        this.transport.send(new UserAddCommand());
     }
 
     // --------------------------------------------------------------------------
@@ -75,9 +47,18 @@ export class UsersPageComponent extends DestroyableContainer {
     //
     // --------------------------------------------------------------------------
 
-    public async cellClickedHandler(item: ICdkTableCellEvent<LedgerUser>): Promise<void> {
-        if (item.column !== UserTableSettings.COLUMN_NAME_MENU) {
-            this.transport.send(new UserOpenCommand(item.data));
+    public add(): void {
+        this.transport.send(new UserAddCommand());
+    }
+
+    public async cellClickedHandler(item: ICdkTableCellEvent<User>): Promise<void> {
+        if (item.column === 'nickname' && !_.isNil(item.data.nicknameUid)) {
+            this.transport.send(new NicknameOpenCommand({ id: item.data.nicknameUid, isBriefly: false }));
+            return;
+        }
+
+        if (item.column !== CDK_TABLE_COLUMN_MENU_NAME) {
+            this.transport.send(new UserOpenCommand({ id: item.data.uid, isBriefly: false }));
         }
         else {
             this.menu.refresh(item.data);

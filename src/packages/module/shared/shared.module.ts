@@ -6,7 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { AmountPipe, RolePipe } from './pipe';
+import { CoinAmountPipe, CoinIdPipe, RolePipe } from './pipe';
 import { PictureGravatarDirective } from './directive';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ActionsComponent, FinanceActionsComponent, CoinBalancesComponent } from './component';
 
 //--------------------------------------------------------------------------
 //
@@ -45,9 +46,14 @@ const imports = [
 
 const declarations = [
     RolePipe,
-    AmountPipe,
+    CoinIdPipe,
+    CoinAmountPipe,
 
-    PictureGravatarDirective
+    PictureGravatarDirective,
+
+    ActionsComponent,
+    FinanceActionsComponent,
+    CoinBalancesComponent
 ];
 
 @NgModule({

@@ -48,7 +48,6 @@ export class WalletService extends LoggerWrapper {
     }
 
     public async sign(message: string, nonce: string, account: string): Promise<ISignature> {
-        console.log(message, nonce);
         return { value: await Metamask.sign(message, account, this.wallet), publicKey: account, algorithm: TransportCryptoManagerMetamaskFrontend.ALGORITHM, nonce };
     }
 

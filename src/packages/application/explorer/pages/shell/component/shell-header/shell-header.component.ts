@@ -3,6 +3,7 @@ import { RouterService, ApiService } from '@core/service';
 import { ViewUtil } from '@ts-core/angular';
 import { IKeyAsymmetric, Destroyable, Transport, TransportCommand, TransportCommandAsync } from '@ts-core/common';
 import { UserAddCommand } from '@feature/user/transport';
+import { TransportSocket } from '@ts-core/socket-client';
 
 @Component({
     selector: 'shell-header',
@@ -28,7 +29,7 @@ export class ShellHeaderComponent extends Destroyable {
     //
     //--------------------------------------------------------------------------
 
-    constructor(element: ElementRef, public api: ApiService, private router: RouterService, private transport: Transport) {
+    constructor(element: ElementRef, public socket: TransportSocket, private router: RouterService, private transport: Transport) {
         super();
         ViewUtil.addClasses(element, 'd-flex align-items-center');
     }

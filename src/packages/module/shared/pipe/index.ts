@@ -1,2 +1,3 @@
 export * from './RolePipe';
-export * from './AmountPipe';
+export * from './CoinIdPipe';
+export * from './CoinAmountPipe';

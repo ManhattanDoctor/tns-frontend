@@ -1,13 +1,12 @@
 import { Logger, ObservableData, Loadable, LoadableEvent, LoadableStatus } from '@ts-core/common';
-import { HlfApiMonitor } from './HlfApiMonitor';
 import { Injectable } from '@angular/core';
 import { WindowService, NotificationService } from '@ts-core/angular';
 import { Client } from '@common/platform/api';
 import { HlfApiClient } from './HlfApiClient';
-import { NativeWindowService } from '@ts-core/frontend';
 import { WalletService } from './WalletService';
-import * as _ from 'lodash';
 import { SignerService } from './SignerService';
+import { TransportSocket } from '@ts-core/socket-client';
+import * as _ from 'lodash';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService extends Loadable {
@@ -19,7 +18,7 @@ export class ApiService extends Loadable {
 
     private _api: Client;
     private _hlf: HlfApiClient;
-    private _monitor: HlfApiMonitor;
+    private _socket: TransportSocket;
 
     private isInitialized: boolean;
 
@@ -29,12 +28,12 @@ export class ApiService extends Loadable {
     //
     // --------------------------------------------------------------------------
 
-    constructor(logger: Logger, nativeWindow: NativeWindowService, windows: WindowService, notifications: NotificationService, wallet: WalletService, signer: SignerService) {
+    constructor(logger: Logger, api: Client, socket: TransportSocket, wallet: WalletService, signer: SignerService) {
         super();
 
-        this._api = new Client(logger);
+        this._api = api;
+        this._socket = socket;
         this._hlf = new HlfApiClient(logger, wallet, signer);
-        this._monitor = new HlfApiMonitor(logger, windows, notifications);
     }
 
     // --------------------------------------------------------------------------
@@ -48,16 +47,16 @@ export class ApiService extends Loadable {
             return;
         }
 
-        this.api.url = url;
+        this.api.url = this.socket.socket.url = url;
         this.status = LoadableStatus.LOADING;
         this.observer.next(new ObservableData(LoadableEvent.STARTED));
 
         try {
             let { hlf } = await this.api.init();
-            this.hlf.url = this.monitor.url = hlf.endpoint;
-            this.hlf.settings.ledgerNameDefault = this.monitor.settings.ledgerNameDefault = hlf.name;
+            this.hlf.url = hlf.endpoint;
+            this.hlf.settings.ledgerNameDefault = hlf.name;
 
-            this.monitor.connect();
+            await this.socket.socket.connect();
             this.status = LoadableStatus.LOADED;
             this.observer.next(new ObservableData(LoadableEvent.COMPLETE));
         } catch (error: any) {
@@ -73,9 +72,6 @@ export class ApiService extends Loadable {
             return;
         }
         super.destroy();
-
-        this._monitor.destroy();
-        this._monitor = null;
 
         this._hlf.destroy();
         this._hlf = null;
@@ -95,7 +91,7 @@ export class ApiService extends Loadable {
         return this._hlf;
     }
 
-    public get monitor(): HlfApiMonitor {
-        return this._monitor;
+    public get socket(): TransportSocket {
+        return this._socket;
     }
 }

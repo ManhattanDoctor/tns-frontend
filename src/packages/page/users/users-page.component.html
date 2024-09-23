@@ -1,31 +1,19 @@
-<div class="p-3 container">
-    <div class="background border rounded">
-        <div class="d-flex border-bottom align-items-center p-3">
-            <span class="fas fa-users ms-2 me-2 my-1"></span>
-
-            <p class="mat-title flex-grow-1 text-one-line mouse-inactive">
-                <span vi-translate="user.users"></span>
-            </p>
-
-            <!--
-            <button class="flex-shrink-0" mat-icon-button (click)="add()" [matTooltip]="'general.add' | viTranslate" [disabled]="items?.isLoading">
-                <span class="fas fa-plus-circle"></span>
-            </button>
-            -->
-
-            <button class="flex-shrink-0" mat-icon-button (click)="items.reload()" [matTooltip]="'general.refresh' | viTranslate" [disabled]="items?.isLoading">
-                <mat-icon fontSet="fas" fontIcon="fa-sync" [class.fa-spin]="items?.isLoading"></mat-icon>
-            </button>
-        </div>
-
-        <vi-cdk-table-paginable
-            class="d-block flex-grow-1"
-            [table]="items"
-            [settings]="settings"
-            (cellClicked)="cellClickedHandler($event)"
-        ></vi-cdk-table-paginable>
+<vi-cdk-table-paginable
+    class="d-block background border rounded flex-grow-1"
+    [table]="items"
+    [settings]="settings"
+    [paginator]="{ hidePageSize: true }"
+    (cellClicked)="cellClickedHandler($event)"
+>
+    <div class="d-flex flex-grow-1 align-items-center ps-1 py-1 pe-3">
+        <button class="flex-shrink-0" mat-icon-button (click)="add()" [matTooltip]="'user.add.add' | viTranslate" [disabled]="items?.isLoading">
+            <mat-icon fontSet="fas" fontIcon="fa-plus"></mat-icon>
+        </button>
+        <button class="flex-shrink-0" mat-icon-button (click)="items.reload()" [matTooltip]="'general.refresh' | viTranslate" [disabled]="items?.isLoading">
+            <mat-icon fontSet="fas" fontIcon="fa-sync" [class.fa-spin]="items?.isLoading"></mat-icon>
+        </button>
     </div>
-</div>
+</vi-cdk-table-paginable>
 
 <mat-menu #matMenu [overlapTrigger]="false">
     <vi-menu-list [list]="menu"></vi-menu-list>

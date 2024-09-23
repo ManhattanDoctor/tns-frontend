@@ -1,14 +1,12 @@
-import { CommonModule } from '@angular/common';
+
 import { NgModule } from '@angular/core';
 import { UsersPageRoutingModule } from './users-page.routing.module';
 import { UsersPageComponent } from './users-page.component';
-import { MatButtonModule } from '@angular/material/button';
-import { UserModule } from '@feature/user';
 import { SharedModule } from '@shared/shared.module';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
-    imports: [CommonModule, MatButtonModule, MatMenuModule, SharedModule, UsersPageRoutingModule, UserModule],
+    imports: [MatProgressBarModule, SharedModule, UsersPageRoutingModule,],
     declarations: [UsersPageComponent]
 })
-export class UsersPageModule { }
+export default class UsersPageModule { }

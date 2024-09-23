@@ -17,7 +17,7 @@ export class UserAddComponent extends IWindowContent implements ISerializable<IU
     //
     // --------------------------------------------------------------------------
 
-    public static EVENT_ADDED = 'EVENT_ADDED';
+    public static EVENT_SUBMITTED = 'EVENT_SUBMITTED';
 
     // --------------------------------------------------------------------------
     //
@@ -64,10 +64,10 @@ export class UserAddComponent extends IWindowContent implements ISerializable<IU
     }
 
     public async submit(): Promise<void> {
-        this.signature = await this.wallet.sign(AclVariables.signature.message, Date.now().toString(), this.account);
-        console.log(this.signature);
+        let nonce = Date.now().toString();
+        this.signature = await this.wallet.sign(AclVariables.signature.message(nonce), nonce, this.account);
         await this.windows.question('user.add.confirmation').yesNotPromise;
-        this.emit(UserAddComponent.EVENT_ADDED);
+        this.emit(UserAddComponent.EVENT_SUBMITTED);
     }
 
     // --------------------------------------------------------------------------

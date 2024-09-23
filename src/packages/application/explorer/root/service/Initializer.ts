@@ -23,16 +23,6 @@ export class Initializer extends ApplicationInitializer {
         notifications: NotificationService,
     ) {
         super(api, router, settings, platform, language);
-
-        /*
-        socket.getDispatcher<FileVectorAddedEvent>(FileVectorAddedEvent.NAME).pipe(
-            map(item => item.data),
-            takeUntil(this.destroyed)).subscribe(() => notifications.info('file.vector.added'));
-
-        socket.getDispatcher<FileVectorErroredEvent>(FileVectorErroredEvent.NAME).pipe(
-            map(item => item.data),
-            takeUntil(this.destroyed)).subscribe(item => notifications.info('file.vector.errored', item));
-        */
     }
 
     //--------------------------------------------------------------------------

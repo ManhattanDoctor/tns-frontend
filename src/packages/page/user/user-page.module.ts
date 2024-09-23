@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { UserPageRoutingModule } from './user-page.routing.module';
 import { UserPageComponent } from './user-page.component';
 import { MatButtonModule } from '@angular/material/button';
-import { UserModule } from '@feature/user';
 import { SharedModule } from '@shared/shared.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { UserModule } from '@feature/user';
 
 @NgModule({
-    imports: [CommonModule, SharedModule, UserPageRoutingModule, UserModule],
+    imports: [CommonModule, MatButtonModule, MatMenuModule, SharedModule, UserPageRoutingModule, UserModule],
     declarations: [UserPageComponent]
 })
-export class UserPageModule {}
+export default class UserPageModule { }

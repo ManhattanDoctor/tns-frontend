@@ -1,0 +1,9 @@
+{
+    "nickname": {
+        "uid": "UID",
+        "nickname": "Имя",
+        "nicknames": "Имена",
+        "ownerUid": "Владелец",
+        "parentUid": "Унаследовано"
+    }
+}

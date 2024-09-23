@@ -1,43 +1,32 @@
 import { Component, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ViewUtil } from '@ts-core/angular';
 import { DestroyableContainer } from '@ts-core/common';
-import * as _ from 'lodash';
+import { ViewUtil } from '@ts-core/angular';
+import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs';
-import { LedgerUser } from '@common/ledger/user';
+import { User } from '@common/platform';
+import * as _ from 'lodash';
 
 @Component({
-    templateUrl: './user-page.component.html'
+    templateUrl: 'user-page.component.html',
 })
 export class UserPageComponent extends DestroyableContainer {
-
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
     //
     // 	Properties
     //
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-    private _user: LedgerUser;
+    public user: User;
 
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
     //
     // 	Constructor
     //
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-    constructor(container: ElementRef, route: ActivatedRoute) {
+    constructor(element: ElementRef, route: ActivatedRoute) {
         super();
-        ViewUtil.addClasses(container, 'd-user');
-        route.data.pipe(takeUntil(this.destroyed)).subscribe(data => this._user = data.user);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    // 	Public Properties
-    //
-    //--------------------------------------------------------------------------
-
-    public get user(): LedgerUser {
-        return this._user;
+        ViewUtil.addClasses(element, 'd-block container px-3 px-lg-4 pb-3 pt-4 pb-lg-4');
+        route.data.pipe(takeUntil(this.destroyed)).subscribe(data => this.user = data.user);
     }
 }

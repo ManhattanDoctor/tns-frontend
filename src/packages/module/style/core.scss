@@ -78,12 +78,13 @@
             max-width: 48px;
         }
         .mat-column-time,
-        .mat-column-type,
-        .mat-column-date,
-        .mat-column-createdDate {
+        .mat-column-type {
             max-width: 140px;
         }
-        .mat-column-login,
+        .mat-column-date,
+        .mat-column-created {
+            max-width: 200px;
+        }
         .mat-column-amount {
             max-width: 180px;
         }

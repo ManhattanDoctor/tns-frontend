@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule, NgModuleRef } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TransportLazyModule } from '@ts-core/angular';
 import { Transport } from '@ts-core/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { UserAddHandler } from './transport/handler';
-import { UserAddCommand } from './transport';
-import { UserAddComponent } from './component';
+import { UserAddHandler, UserOpenHandler } from './transport/handler';
+import { UserAddCommand, UserOpenCommand } from './transport';
+import { UserAddComponent, UserContainerComponent, UserDetailsComponent } from './component';
 
 //--------------------------------------------------------------------------
 //
@@ -17,10 +18,10 @@ import { UserAddComponent } from './component';
 //--------------------------------------------------------------------------
 
 const providers = [];
-const declarations = [UserAddComponent];
+const declarations = [UserAddComponent, UserContainerComponent, UserDetailsComponent];
 
 @NgModule({
-    imports: [CommonModule, MatButtonModule, MatFormFieldModule, MatSelectModule, SharedModule],
+    imports: [CommonModule, MatButtonModule, MatFormFieldModule, MatProgressBarModule, MatSelectModule, SharedModule],
     exports: declarations,
     declarations,
     providers
@@ -33,7 +34,7 @@ export class UserModule extends TransportLazyModule<UserModule> {
     //--------------------------------------------------------------------------
 
     public static ID = 'UserModule';
-    public static COMMANDS = [UserAddCommand.NAME];
+    public static COMMANDS = [UserAddCommand.NAME, UserOpenCommand.NAME];
 
     //--------------------------------------------------------------------------
     //
@@ -41,7 +42,7 @@ export class UserModule extends TransportLazyModule<UserModule> {
     //
     //--------------------------------------------------------------------------
 
-    constructor(reference: NgModuleRef<UserModule>, transport: Transport, add: UserAddHandler) {
+    constructor(reference: NgModuleRef<UserModule>, transport: Transport, add: UserAddHandler, open: UserOpenHandler) {
         super(reference, transport);
     }
 

@@ -1,0 +1,18 @@
+<div class="d-flex flex-shrink-0 align-items-center py-3 ps-1 pe-3">
+    <img class="border rounded flex-shrink-0 me-3 ms-2" style="width: 32px; height: 32px" [picture-gravatar]="item?.uid" [display]="'retro'" />
+    <p class="mat-subtitle-2 flex-grow-1 text-one-line mouse-inactive text-base" [innerHTML]="item?.nickname"></p>
+</div>
+
+<vi-tab-group class="d-block flex-shrink-0 border-top border-bottom" [list]="tabs"></vi-tab-group>
+
+<div class="d-flex flex-grow-1 scroll-vertical">
+    <nickname-details class="flex-grow-1 p-3" *ngIf="tabs.selectedData === 'NICKNAME'" [nickname]="item"></nickname-details>
+    <coin-balances class="flex-grow-1" *ngIf="tabs.selectedData === 'COIN_BALANCES'" [uid]="item?.uid"></coin-balances>
+    <actions class="flex-grow-1" [uid]="item?.uid" *ngIf="tabs.selectedData === 'HLF_ACTIONS'"></actions>
+    <finance-actions class="flex-grow-1" [uid]="item?.uid" *ngIf="tabs.selectedData === 'HLF_FINANCE_ACTIONS'"></finance-actions>
+</div>
+
+<mat-menu #matMenu [overlapTrigger]="false">
+    <vi-menu-list [list]="menu"></vi-menu-list>
+</mat-menu>
+<span [vi-menu-trigger-for]="matMenu"></span>

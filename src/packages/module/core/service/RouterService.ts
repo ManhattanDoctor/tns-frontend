@@ -14,13 +14,13 @@ export class RouterService extends RouterBaseService {
     // --------------------------------------------------------------------------
 
     public static USERS_URL = 'users';
-    public static PROJECTS_URL = 'projects';
-    public static COMPANIES_URL = 'companies';
+    public static AUCTIONS_URL = 'auctions';
+    public static NICKNAMES_URL = 'nicknames';
 
     public static USER_URL = 'user';
-    public static COMPANY_URL = 'company';
-    public static PROJECT_URL = 'project';
-    public static TRANSACTION_URL = 'transaction';
+    public static COIN_URL = 'coin';
+    public static AUCTION_URL = 'auction';
+    public static NICKNAME_URL = 'nickname';
 
     public static MESSAGE_URL = 'message';
     public static DEFAULT_URL = RouterService.USERS_URL;

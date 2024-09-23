@@ -1,0 +1,19 @@
+<div class="d-flex flex-shrink-0 align-items-center py-3 ps-1 pe-3 text-base">
+    <img class="border rounded flex-shrink-0 me-3 ms-2" style="width: 32px; height: 32px" [picture-gravatar]="item?.uid" />
+    <p class="mat-subtitle-2 flex-grow-1 text-one-line mouse-inactive" [innerHTML]="item?.coinId"></p>
+</div>
+
+<vi-tab-group class="d-block flex-shrink-0 border-top border-bottom" [list]="tabs"></vi-tab-group>
+
+<div class="d-flex flex-grow-1 scroll-vertical">
+
+    <coin-details class="flex-grow-1 p-3" *ngIf="tabs.selectedData === 'COIN'" [item]="item"></coin-details>
+
+    <coin-balances class="flex-grow-1" [coinUid]="item?.uid" *ngIf="tabs.selectedData === 'BALANCES'"></coin-balances>
+
+</div>
+
+<mat-menu #matMenu [overlapTrigger]="false">
+    <vi-menu-list [list]="menu"></vi-menu-list>
+</mat-menu>
+<span [vi-menu-trigger-for]="matMenu"></span>

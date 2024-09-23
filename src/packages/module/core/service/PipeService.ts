@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LanguageService } from '@ts-core/frontend';
 import { PipeBaseService } from '@ts-core/angular';
-import { AmountPipe, RolePipe } from '@shared/pipe';
+import { CoinAmountPipe, CoinIdPipe, RolePipe } from '@shared/pipe';
 
 @Injectable({ providedIn: 'root' })
 export class PipeService extends PipeBaseService {
@@ -13,7 +13,8 @@ export class PipeService extends PipeBaseService {
     //--------------------------------------------------------------------------
 
     private static ROLE_PIPE: RolePipe;
-    private static AMOUNT_PIPE: AmountPipe;
+    private static COIN_ID_PIPE: CoinIdPipe;
+    private static COIN_AMOUNT_PIPE: CoinAmountPipe;
 
     //--------------------------------------------------------------------------
     //
@@ -38,11 +39,17 @@ export class PipeService extends PipeBaseService {
         return PipeService.ROLE_PIPE;
     }
 
-    public get amount(): AmountPipe {
-        if (!PipeService.AMOUNT_PIPE) {
-            PipeService.AMOUNT_PIPE = new AmountPipe();
+    public get coinId(): CoinIdPipe {
+        if (!PipeService.COIN_ID_PIPE) {
+            PipeService.COIN_ID_PIPE = new CoinIdPipe(this.language);
         }
-        return PipeService.AMOUNT_PIPE;
+        return PipeService.COIN_ID_PIPE;
+    }
+    public get coinAmount(): CoinAmountPipe {
+        if (!PipeService.COIN_AMOUNT_PIPE) {
+            PipeService.COIN_AMOUNT_PIPE = new CoinAmountPipe(this.language);
+        }
+        return PipeService.COIN_AMOUNT_PIPE;
     }
 
 }

@@ -5,20 +5,38 @@
 //--------------------------------------------------------------------------
 
 import { UserModule } from '@feature/user';
+import { HlfModule } from '@feature/hlf';
+import { CoinModule } from '@feature/coin';
+import { ActionModule } from '@feature/action';
+import { NicknameModule } from '@feature/nickname';
 
 export let LAZY_MODULES: Array<any> = [
-
+    {
+        id: HlfModule.ID,
+        commands: HlfModule.COMMANDS,
+        path: async () => (await import('@feature/hlf')).HlfModule
+    },
     {
         id: UserModule.ID,
         commands: UserModule.COMMANDS,
         path: async () => (await import('@feature/user')).UserModule
     },
-    /*
     {
-        id: ProfileModule.ID,
-        commands: ProfileModule.COMMANDS,
-        path: async () => (await import('@feature/profile')).ProfileModule
+        id: ActionModule.ID,
+        commands: ActionModule.COMMANDS,
+        path: async () => (await import('@feature/action')).ActionModule
     },
+    {
+        id: CoinModule.ID,
+        commands: CoinModule.COMMANDS,
+        path: async () => (await import('@feature/coin')).CoinModule
+    },
+    {
+        id: NicknameModule.ID,
+        commands: NicknameModule.COMMANDS,
+        path: async () => (await import('@feature/nickname')).NicknameModule
+    },
+    /*
     {
         id: TaskModule.ID,
         commands: TaskModule.COMMANDS,

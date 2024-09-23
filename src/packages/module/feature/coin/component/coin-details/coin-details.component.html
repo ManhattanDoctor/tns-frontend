@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-12">
+        <mat-form-field class="d-block">
+            <input #uid matInput [value]="item?.uid | viPrettify" [vi-click-to-copy]="uid" disabled />
+            <mat-label vi-translate="coin.uid"></mat-label>
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="d-block">
+            <input matInput class="text-success" [value]="item?.balance.inUse | coinAmount: item : false" disabled />
+            <mat-label vi-translate="coin.inUse"></mat-label>
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="d-block">
+            <input matInput class="text-danger" [value]="item?.balance.held | coinAmount: item : false" disabled />
+            <mat-label vi-translate]="coin.held"></mat-label>
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="d-block">
+            <input matInput class="text-success" [value]="item?.balance.emitted | coinAmount: item : false" disabled />
+            <mat-label vi-translate="coin.emitted"></mat-label>
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="d-block">
+            <input matInput class="text-danger" [value]="item?.balance.burned | coinAmount: item : false" disabled />
+            <mat-label vi-translate="coin.burned"></mat-label>
+        </mat-form-field>
+    </div>
+</div>

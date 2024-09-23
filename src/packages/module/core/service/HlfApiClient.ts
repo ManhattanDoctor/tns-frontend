@@ -1,11 +1,10 @@
 import { Logger, TransportCryptoManager, ITransportCommand, TransportCommand, ITransportCommandOptions, TransportCommandAsync, ISignature } from '@ts-core/common';
 import { ILedgerRequestRequest, LedgerApiClient } from '@hlf-explorer/common';
 import { SignerService } from '@core/service';
-import { Metamask, TransportCryptoManagerMetamaskFrontend } from '@ts-core/crypto-metamask-frontend';
-import * as _ from 'lodash';
-import { NativeWindowService } from '@ts-core/frontend';
-import { User } from '../../../../externals/common/hlf/acl';
+import { TransportCryptoManagerMetamaskFrontend } from '@ts-core/crypto-metamask-frontend';
+import { User } from '@common/hlf/acl';
 import { WalletService } from './WalletService';
+import * as _ from 'lodash';
 
 export class HlfApiClient extends LedgerApiClient {
 

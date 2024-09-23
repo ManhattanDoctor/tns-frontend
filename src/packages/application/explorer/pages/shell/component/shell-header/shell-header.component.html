@@ -8,7 +8,7 @@
     <p class="flex-shrink-0 mouse-active" (click)="back()">
         <span
             class="fas fa-shield fa-2x me-2 flex-shrink-0"
-            [ngClass]="{ 'text-primary': api.monitor.isLoaded, 'text-danger': !api.monitor.isLoaded }"
+            [ngClass]="{ 'text-primary': socket.socket.isLoaded, 'text-danger': !socket.socket.isLoaded }"
         ></span>
         <span class="mat-headline-1 font-family-title text-base text-underline-hover mouse-active flex-shrink-0" vi-translate="general.header"></span>
     </p>

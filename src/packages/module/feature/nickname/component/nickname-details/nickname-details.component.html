@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-12">
+        <mat-form-field class="d-block" [vi-click-to-copy]="uid">
+            <input #uid matInput [value]="nickname?.uid" disabled />
+            <mat-label vi-translate="nickname.uid"></mat-label>
+        </mat-form-field>
+    </div>
+
+    <div class="col-12">
+        <mat-form-field class="d-block" [vi-click-to-copy]="ownerUid">
+            <input #ownerUid matInput [value]="nickname?.ownerUid" disabled />
+            <mat-label vi-translate="nickname.ownerUid"></mat-label>
+            <button mat-icon-button (click)="open(nickname.ownerUid)" matSuffix tabindex="-1">
+                <mat-icon fontSet="fas" fontIcon="fa-user"></mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div class="col-12" *ngIf="nickname?.parentUid" [vi-click-to-copy]="parentUid">
+        <mat-form-field class="d-block" [vi-click-to-copy]="parentUid">
+            <input #parentUid matInput [value]="nickname?.parentUid" disabled />
+            <mat-label vi-translate="nickname.parentUid"></mat-label>
+            <button mat-icon-button (click)="open(nickname.parentUid)" matSuffix tabindex="-1">
+                <mat-icon fontSet="fas" fontIcon="fa-tag"></mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+</div>

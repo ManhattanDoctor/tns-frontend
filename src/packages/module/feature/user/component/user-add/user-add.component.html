@@ -1,10 +1,12 @@
-<div class="d-flex flex-shrink-0 align-items-center p-3 border-bottom">
+<div class="d-flex flex-shrink-0 align-items-center p-3">
     <p class="mat-headline-1 flex-grow-1 text-one-line mouse-inactive" vi-translate="user.add.add"></p>
 
     <button class="flex-shrink-0" mat-raised-button color="primary" [disabled]="form.invalid" (click)="submit()">
-        <span vi-translate="general.save"></span>
+        <span vi-translate="user.add.add"></span>
     </button>
 </div>
+
+<mat-progress-bar class="border-line flex-shrink-0" [mode]="isDisabled ? 'indeterminate' : 'determinate'"></mat-progress-bar>
 
 <form
     class="flex-grow-1 px-3 pt-3 pb-2 row g-0 vertical-scroll-only"

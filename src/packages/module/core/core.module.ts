@@ -13,10 +13,11 @@ import {
     PipeBaseService,
     MomentDatePipe,
     ILazyModuleData,
+    NotificationService,
 } from '@ts-core/angular';
 import { VIMatModule } from '@ts-core/angular-material';
 import { SettingsBaseService } from '@ts-core/frontend';
-import { CoreInitializer, PipeService, RouterService, SettingsService } from './service';
+import { ApiSocket, CoreInitializer, PipeService, RouterService, SettingsService } from './service';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DateUtil, Transport, ILogger, Logger } from '@ts-core/common';
@@ -27,6 +28,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Client } from '@common/platform/api';
 import * as _ from 'lodash';
+import { NicknameMapCollection, UserMapCollection } from './lib';
+import { TransportSocket } from '@ts-core/socket-client';
 
 //--------------------------------------------------------------------------
 //
@@ -68,6 +71,11 @@ export class CoreModule {
                     useFactory: (logger: ILogger): Client => new Client(logger, null)
                 },
                 {
+                    provide: TransportSocket,
+                    deps: [Logger, NotificationService],
+                    useFactory: (logger: ILogger, notifications: NotificationService): TransportSocket => new ApiSocket(logger, notifications)
+                },
+                {
                     provide: Transport,
                     deps: [Logger, LazyModuleLoader, PLATFORM_ID],
                     useFactory: (logger: ILogger, loader: LazyModuleLoader<ITransportLazyModuleData>): Transport => {
@@ -105,7 +113,10 @@ export class CoreModule {
                             monthYearA11yLabel: 'MMMM YYYY'
                         }
                     }
-                }
+                },
+
+                UserMapCollection,
+                NicknameMapCollection
             ]
         };
     }
