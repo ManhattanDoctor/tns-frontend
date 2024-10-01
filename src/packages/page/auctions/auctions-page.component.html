@@ -6,6 +6,12 @@
     (cellClicked)="cellClickedHandler($event)"
 >
     <div class="d-flex flex-grow-1 align-items-center ps-1 py-1 pe-3">
+        <button class="flex-shrink-0" mat-icon-button (click)="addPrimary()" [matTooltip]="'auction.add.primary' | viTranslate" [disabled]="items?.isLoading">
+            <mat-icon fontSet="fas" fontIcon="fa-1"></mat-icon>
+        </button>
+        <button class="flex-shrink-0" mat-icon-button (click)="addSecondary()" [matTooltip]="'auction.add.secondary' | viTranslate" [disabled]="items?.isLoading">
+            <mat-icon fontSet="fas" fontIcon="fa-2"></mat-icon>
+        </button>
         <button class="flex-shrink-0" mat-icon-button (click)="items.reload()" [matTooltip]="'general.refresh' | viTranslate" [disabled]="items?.isLoading">
             <mat-icon fontSet="fas" fontIcon="fa-sync" [class.fa-spin]="items?.isLoading"></mat-icon>
         </button>

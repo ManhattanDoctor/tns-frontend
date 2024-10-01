@@ -3,7 +3,8 @@ import { DestroyableContainer } from '@ts-core/common';
 import { FinancePipe, PrettifyPipe } from '@ts-core/angular';
 import { CoinIdPipe } from './CoinIdPipe';
 import { LanguageService } from '@ts-core/frontend';
-import { CoinUtil } from '@hlf-core/common';
+import { CoinUtil, ICoinAmount } from '@hlf-core/common';
+import { Action, Coin, CoinBalance } from '@common/platform';
 import * as _ from 'lodash';
 
 @Pipe({
@@ -37,13 +38,13 @@ export class CoinAmountPipe extends DestroyableContainer implements PipeTransfor
     //
     // --------------------------------------------------------------------------
 
-    public transform(amount: string, coin: ICoinDetails, isNeedCoinId: boolean = true): string {
+    public transform(amount: string, coin: CoinType, isNeedCoinId: boolean = true): string {
         if (_.isNil(amount) || _.isNil(coin)) {
             return PrettifyPipe.EMPTY_SYMBOL;
         }
+        let coinUid = !_.isNil(coin['coinUid']) ? coin['coinUid'] : coin['uid'];
         let value = this.finance.transform(CoinUtil.fromCent(amount, coin.decimals), '0,0.[000000000000000000]');
-        let coinId = !_.isNil(coin.coinId) ? coin.coinId : coin.coinUid;
-        return !isNeedCoinId ? value : `${value} ${this.coinId.transform(coinId)}`;
+        return !isNeedCoinId ? value : `${value} ${this.coinId.transform(coinUid)}`;
     }
 
     public destroy(): void {
@@ -59,8 +60,12 @@ export class CoinAmountPipe extends DestroyableContainer implements PipeTransfor
     }
 }
 
+export type CoinType = ICoinAmount | Coin | CoinBalance | Action;
+
+/*
 interface ICoinDetails {
     coinId?: string;
     coinUid?: string;
     decimals?: number;
 }
+*/

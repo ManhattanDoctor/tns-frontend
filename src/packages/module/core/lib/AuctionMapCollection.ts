@@ -2,11 +2,12 @@
 import { CdkTableColumnMenu, ICdkTableColumn, ICdkTableSettings } from '@ts-core/angular-material';
 import { IPagination, TransformUtil, PaginableDataSourceMapCollection } from '@ts-core/common';
 import { Client } from '@common/platform/api';
-import { ApiSocket, HlfObjectDetailsService, PipeService } from '@core/service';
+import { HlfObjectDetailsService, PipeService } from '@core/service';
 import { Injectable } from '@angular/core';
 import { Auction } from '@common/platform';
-import { AuctionAddedEvent } from '@common/platform/transport';
+import { AuctionAddedEvent, AuctionChangedEvent } from '@common/platform/transport';
 import { map, takeUntil } from 'rxjs';
+import { TransportSocket } from '@ts-core/socket-client';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -17,12 +18,12 @@ export class AuctionMapCollection extends PaginableDataSourceMapCollection<Aucti
     //
     // --------------------------------------------------------------------------
 
-    constructor(private api: Client, socket: ApiSocket) {
+    constructor(private api: Client, socket: TransportSocket) {
         super('id');
         this.sort.created = false;
+
         socket.getDispatcher<AuctionAddedEvent>(AuctionAddedEvent.NAME)
             .pipe(
-                map(item => item.data),
                 takeUntil(this.destroyed)
             ).subscribe(() => this.reload());
     }

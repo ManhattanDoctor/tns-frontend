@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { DateUtil, LoadableEvent, Logger } from '@ts-core/common';
 import { TransportSocket, TransportSocketClient } from '@ts-core/socket-client';
 import { NotificationService } from '@ts-core/angular';
-import { filter, takeUntil } from 'rxjs';
+import { filter, map, takeUntil } from 'rxjs';
 import { SOCKET_NAMESPACE } from '@common/platform/api';
 import * as _ from 'lodash';
 
-@Injectable({ providedIn: 'root' })
 export class ApiSocket extends TransportSocket {
 
     // --------------------------------------------------------------------------

@@ -79,7 +79,7 @@ export class RootComponent extends ApplicationComponent<SettingsService> {
         manager.addLoadable(this.language, this.api.socket, this.api.hlf, this.api.api, this.router);
 
         // Api
-        merge(this.api.api.events)
+        merge(this.api.api.events, this.api.hlf.events)
             .pipe(
                 filter(event => event.type === LoadableEvent.ERROR),
                 map(<T>(event) => event.data as TransportHttpCommandAsync<T>),
@@ -96,7 +96,6 @@ export class RootComponent extends ApplicationComponent<SettingsService> {
 
     protected async apiLoadingError<T>(command: TransportHttpCommandAsync<T>): Promise<void> {
         let error = command.error;
-
         let { key, params } = ErrorUtil.getTranslation(error);
         if (command.isHandleError) {
             this.windows.info(key, params);

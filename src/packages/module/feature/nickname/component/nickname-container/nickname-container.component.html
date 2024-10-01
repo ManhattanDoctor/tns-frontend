@@ -1,6 +1,9 @@
-<div class="d-flex flex-shrink-0 align-items-center py-3 ps-1 pe-3">
+<div class="d-flex flex-shrink-0 align-items-center py-2 ps-3 pe-1">
     <img class="border rounded flex-shrink-0 me-3 ms-2" style="width: 32px; height: 32px" [picture-gravatar]="item?.uid" [display]="'retro'" />
     <p class="mat-subtitle-2 flex-grow-1 text-one-line mouse-inactive text-base" [innerHTML]="item?.nickname"></p>
+    <button class="flex-shrink-0" mat-icon-button tabindex="-1" (click)="menuOpen($event)">
+        <mat-icon fontSet="fas" fontIcon="fa-ellipsis-v"></mat-icon>
+    </button>
 </div>
 
 <vi-tab-group class="d-block flex-shrink-0 border-top border-bottom" [list]="tabs"></vi-tab-group>

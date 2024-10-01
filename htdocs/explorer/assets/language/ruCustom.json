@@ -1,5 +1,6 @@
 {
     "general": {
+        "submit": "Отправить",
         "header": "TNS",
         "footer": "TNS Foundation"
     },
@@ -20,8 +21,19 @@
                 "description": {
                     "USER_ADDED": "Пользователь создан",
                     "AUCTION_ADDED": "Аукцион создан",
+                    "AUCTION_BIDED": "Сделана ставка",
+                    "AUCTION_FINISHED": "Аукцион завершен",
+                    "AUCTION_BID_MADE": "Ставка сделана",
+                    "AUCTION_BID_BITTEN": "Ставка перебита",
                     "NICKNAME_ADDED": "Имя создано",
+                    "NICKNAME_ASSIGNED": "Имя присвоено",
+                    "NICKNAME_OWNER_CHANGED": "Изменился владелец",
+                    "NICKNAME_TRANSFER_SENT": "Имя передано",
+                    "NICKNAME_TRANSFER_RECEIVE": "Имя получено",
                     "COIN_EMITTED": "Эмиссия токенов",
+                    "COIN_BURNED": "Токены сожжены",
+                    "COIN_HOLDED": "Токены заблокированы",
+                    "COIN_UNHOLDED": "Токены разблокированы",
                     "COIN_TRANSFER_RECEIVE": "Получены токены",
                     "COIN_TRANSFER_SENT": "Переданы токены "
                 }

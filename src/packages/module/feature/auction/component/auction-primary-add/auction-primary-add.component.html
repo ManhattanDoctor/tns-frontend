@@ -1,5 +1,5 @@
 <div class="d-flex flex-shrink-0 align-items-center p-3">
-    <p class="mat-headline-1 flex-grow-1 text-one-line mouse-inactive" vi-translate="coin.transfer.transfer"></p>
+    <p class="mat-headline-1 flex-grow-1 text-one-line mouse-inactive" vi-translate="auction.add.primary"></p>
 
     <button class="flex-shrink-0" mat-raised-button color="primary" [disabled]="isDisabled || form.invalid" (click)="submit()">
         <span vi-translate="general.submit"></span>
@@ -14,21 +14,22 @@
     autocomplete="off"
     (keyup.enter)="form.invalid || isDisabled ? $event.stopPropagation() : submit()"
 >
-
     <div class="col-12">
         <mat-form-field class="d-block">
-            <input #toInput="ngModel" matInput name="to" [(ngModel)]="to" type="text" [pattern]="uidPattern" />
-            <mat-label vi-translate="user.user"></mat-label>
-            <mat-error *ngIf="!(toInput.valid || !toInput.touched)" [innerHTML]="toInput.errors | viNgModelError"></mat-error>
+            <input #nicknameInput="ngModel" matInput name="nickname" [(ngModel)]="nickname" type="text" required [pattern]="nicknamePattern" />
+            <mat-label vi-translate="nickname.nickname"></mat-label>
+            <mat-error *ngIf="!(nicknameInput.valid || !nicknameInput.touched)" [innerHTML]="nicknameInput.errors | viNgModelError"></mat-error>
+            <button mat-icon-button (click)="check()" matSuffix tabindex="-1">
+                <mat-icon fontSet="fas" fontIcon="fa-barcode"></mat-icon>
+            </button>
         </mat-form-field>
     </div>
 
     <div class="col-12">
         <mat-form-field class="d-block">
-            <input #amountInput="ngModel" matInput name="amount" [(ngModel)]="amount" type="number" min="0"/>
+            <input matInput [value]="amount?.value | coinAmount : amount : true" type="text" disabled />
             <mat-label vi-translate="coin.amount"></mat-label>
-            <mat-error *ngIf="!(amountInput.valid || !amountInput.touched)" [innerHTML]="amountInput.errors | viNgModelError"></mat-error>
         </mat-form-field>
     </div>
-
+    
 </form>

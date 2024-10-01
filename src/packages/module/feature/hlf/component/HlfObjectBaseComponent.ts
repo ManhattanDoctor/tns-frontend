@@ -1,10 +1,10 @@
 import { Component, Input, ViewContainerRef } from '@angular/core';
 import { IWindowContent } from '@ts-core/angular';
-import { Transport, ClassType, ITransport } from '@ts-core/common';
+import { Transport, ClassType, ITransport, getUid } from '@ts-core/common';
 import { HlfObjectOpenBaseCommand } from '@feature/hlf/transport';
 import { Coin, Nickname, User } from '@common/platform';
 import { UserOpenCommand } from '@feature/user/transport';
-import { getType, HlfObjectType  } from '@common/hlf';
+import { getType, HlfObjectType } from '@common/hlf';
 import { HlfObjectId, HlfObject } from '@core/lib';
 import { NicknameOpenCommand } from '@feature/nickname/transport';
 import { CoinOpenCommand } from '@feature/coin/transport';
@@ -74,7 +74,7 @@ export class HlfObjectBaseComponent<U extends HlfObject> extends IWindowContent 
     //--------------------------------------------------------------------------
 
     protected itemOpenedHandler(item: U): void { };
-    
+
     protected itemClosedHandler(item: U): void { };
 
     //--------------------------------------------------------------------------
@@ -111,6 +111,10 @@ export class HlfObjectBaseComponent<U extends HlfObject> extends IWindowContent 
     // 	Public Properties
     //
     //--------------------------------------------------------------------------
+
+    public get uid(): string {
+        return getUid(this.item);
+    }
 
     public get item(): U {
         return this._item;

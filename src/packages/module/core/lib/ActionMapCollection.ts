@@ -82,7 +82,6 @@ export class ActionTableSettings implements ICdkTableSettings<Action> {
         }
         switch (item) {
             case ActionType.COIN_EMITTED:
-            case ActionType.COIN_UNHOLDED:
             case ActionType.COIN_TRANSFER_RECEIVE:
                 return true;
             default:
@@ -96,7 +95,6 @@ export class ActionTableSettings implements ICdkTableSettings<Action> {
         }
         switch (item) {
             case ActionType.COIN_BURNED:
-            case ActionType.COIN_HOLDED:
             case ActionType.COIN_TRANSFER_SENT:
                 return true;
             default:

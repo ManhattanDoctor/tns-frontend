@@ -7,9 +7,9 @@ import { TransportLazyModule } from '@ts-core/angular';
 import { Transport } from '@ts-core/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { AuctionOpenHandler } from './transport/handler';
-import { AuctionOpenCommand } from './transport';
-import { AuctionContainerComponent, AuctionDetailsComponent } from './component';
+import { AuctionOpenHandler, AuctionPrimaryAddHandler, AuctionBidHandler, AuctionSecondaryAddHandler } from './transport/handler';
+import { AuctionOpenCommand, AuctionPrimaryAddCommand, AuctionBidCommand, AuctionSecondaryAddCommand } from './transport';
+import { AuctionContainerComponent, AuctionSecondaryAddComponent, AuctionDetailsComponent, AuctionPrimaryAddComponent, AuctionBidComponent } from './component';
 
 //--------------------------------------------------------------------------
 //
@@ -18,7 +18,7 @@ import { AuctionContainerComponent, AuctionDetailsComponent } from './component'
 //--------------------------------------------------------------------------
 
 const providers = [];
-const declarations = [AuctionContainerComponent, AuctionDetailsComponent];
+const declarations = [AuctionContainerComponent, AuctionSecondaryAddComponent, AuctionPrimaryAddComponent, AuctionDetailsComponent, AuctionBidComponent];
 
 @NgModule({
     imports: [CommonModule, MatButtonModule, MatFormFieldModule, MatProgressBarModule, MatSelectModule, SharedModule],
@@ -34,7 +34,7 @@ export class AuctionModule extends TransportLazyModule<AuctionModule> {
     //--------------------------------------------------------------------------
 
     public static ID = 'AuctionModule';
-    public static COMMANDS = [AuctionOpenCommand.NAME];
+    public static COMMANDS = [AuctionOpenCommand.NAME, AuctionPrimaryAddCommand.NAME, AuctionSecondaryAddCommand.NAME, AuctionBidCommand.NAME];
 
     //--------------------------------------------------------------------------
     //
@@ -42,7 +42,7 @@ export class AuctionModule extends TransportLazyModule<AuctionModule> {
     //
     //--------------------------------------------------------------------------
 
-    constructor(reference: NgModuleRef<AuctionModule>, transport: Transport, open: AuctionOpenHandler) {
+    constructor(reference: NgModuleRef<AuctionModule>, transport: Transport, open: AuctionOpenHandler, primaryAdd: AuctionPrimaryAddHandler, secondaryAdd: AuctionSecondaryAddHandler, bid: AuctionBidHandler) {
         super(reference, transport);
     }
 

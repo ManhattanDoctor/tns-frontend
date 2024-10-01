@@ -1,11 +1,12 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { ISelectListItem, SelectListItem, SelectListItems } from '@ts-core/angular';
-import { User } from '@common/platform';
+import { getUserRoom, User } from '@common/platform';
 import { UserMenu } from '../../service';
 import { LanguageService } from '@ts-core/frontend';
 import { Transport } from '@ts-core/common';
 import { MenuTriggerForDirective } from '@ts-core/angular-material';
 import { HlfObjectContainerBaseComponent } from '@feature/hlf/component';
+import { TransportSocket } from '@ts-core/socket-client';
 import * as _ from 'lodash';
 
 @Component({
@@ -35,6 +36,7 @@ export class UserContainerComponent extends HlfObjectContainerBaseComponent<User
         container: ViewContainerRef,
         transport: Transport,
         language: LanguageService,
+        private socket: TransportSocket,
         public menu: UserMenu,
     ) {
         super(container, transport);
@@ -45,6 +47,20 @@ export class UserContainerComponent extends HlfObjectContainerBaseComponent<User
         this.tabs.add(new SelectListItem('hlf.action.actions', 2, 'HLF_ACTIONS'));
         this.tabs.add(new SelectListItem('hlf.action.finances', 3, 'HLF_FINANCE_ACTIONS'));
         this.tabs.complete(0);
+    }
+
+    // --------------------------------------------------------------------------
+    //
+    // 	Private Methods
+    //
+    // --------------------------------------------------------------------------
+
+    protected itemOpenedHandler(item: User): void {
+        this.socket.roomAdd(getUserRoom(item.id));
+    }
+
+    protected itemClosedHandler(item: User): void {
+        this.socket.roomRemove(getUserRoom(item.id));
     }
 
     // --------------------------------------------------------------------------

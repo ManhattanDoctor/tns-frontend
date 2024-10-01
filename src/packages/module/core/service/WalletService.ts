@@ -37,6 +37,10 @@ export class WalletService extends LoggerWrapper {
         if (this.isHasPermissions) {
             return;
         }
+        if (!_.isEmpty(await this.wallet.request({ method: "wallet_getPermissions", params: [] }))) {
+            this.isHasPermissions = true;
+            return;
+        }
         try {
             await this.wallet.request({ method: 'wallet_requestPermissions', params: [{ "eth_accounts": {} }] });
             this.isHasPermissions = true;

@@ -2,12 +2,13 @@
 import { CdkTableColumnMenu, ICdkTableColumn, ICdkTableSettings } from '@ts-core/angular-material';
 import { IPagination, TransformUtil, PaginableDataSourceMapCollection } from '@ts-core/common';
 import { Client } from '@common/platform/api';
-import { ApiSocket, HlfObjectDetailsService, PipeService } from '@core/service';
+import { HlfObjectDetailsService, PipeService } from '@core/service';
 import { Injectable } from '@angular/core';
 import { Nickname, User } from '@common/platform';
 import { UserAddedEvent } from '@common/platform/transport';
 import { map, takeUntil } from 'rxjs';
 import * as _ from 'lodash';
+import { TransportSocket } from '@ts-core/socket-client';
 
 @Injectable()
 export class UserMapCollection extends PaginableDataSourceMapCollection<User, User> {
@@ -17,12 +18,12 @@ export class UserMapCollection extends PaginableDataSourceMapCollection<User, Us
     //
     // --------------------------------------------------------------------------
 
-    constructor(private api: Client, socket: ApiSocket) {
+    constructor(private api: Client, socket: TransportSocket) {
         super('id');
         this.sort.created = false;
+
         socket.getDispatcher<UserAddedEvent>(UserAddedEvent.NAME)
             .pipe(
-                map(item => item.data),
                 takeUntil(this.destroyed)
             ).subscribe(() => this.reload());
     }

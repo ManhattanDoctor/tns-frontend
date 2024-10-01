@@ -28,12 +28,12 @@ export class ApiService extends Loadable {
     //
     // --------------------------------------------------------------------------
 
-    constructor(logger: Logger, api: Client, socket: TransportSocket, wallet: WalletService, signer: SignerService) {
+    constructor(logger: Logger, api: Client, socket: TransportSocket, signer: SignerService) {
         super();
 
         this._api = api;
         this._socket = socket;
-        this._hlf = new HlfApiClient(logger, wallet, signer);
+        this._hlf = new HlfApiClient(logger, signer);
     }
 
     // --------------------------------------------------------------------------

@@ -3,7 +3,7 @@ import { ViewUtil } from '@ts-core/angular';
 import { CDK_TABLE_COLUMN_MENU_NAME, ICdkTableCellEvent, MenuTriggerForDirective } from '@ts-core/angular-material';
 import { Transport, DestroyableContainer } from '@ts-core/common';
 import { HlfObjectDetailsService, PipeService } from '@core/service';
-import { AuctionOpenCommand } from '@feature/auction/transport';
+import { AuctionOpenCommand, AuctionPrimaryAddCommand, AuctionSecondaryAddCommand } from '@feature/auction/transport';
 import { AuctionMapCollection, AuctionTableSettings } from '@core/lib';
 import { Auction } from '@common/platform';
 import { AuctionMenu } from '@feature/auction/service';
@@ -46,6 +46,14 @@ export class AuctionsPageComponent extends DestroyableContainer {
     // 	Event Handlers
     //
     // --------------------------------------------------------------------------
+
+    public addPrimary(): void {
+        this.transport.send(new AuctionPrimaryAddCommand());
+    }
+
+    public addSecondary(): void {
+        this.transport.send(new AuctionSecondaryAddCommand());
+    }
 
     public async cellClickedHandler(item: ICdkTableCellEvent<Auction>): Promise<void> {
         if (item.column === 'parentUid' && !_.isNil(item.data.parentUid)) {

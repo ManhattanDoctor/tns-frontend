@@ -8,6 +8,7 @@ import { UserModule } from '@feature/user';
 import { HlfModule } from '@feature/hlf';
 import { CoinModule } from '@feature/coin';
 import { ActionModule } from '@feature/action';
+import { AuctionModule } from '@feature/auction';
 import { NicknameModule } from '@feature/nickname';
 
 export let LAZY_MODULES: Array<any> = [
@@ -35,6 +36,11 @@ export let LAZY_MODULES: Array<any> = [
         id: NicknameModule.ID,
         commands: NicknameModule.COMMANDS,
         path: async () => (await import('@feature/nickname')).NicknameModule
+    },
+    {
+        id: AuctionModule.ID,
+        commands: AuctionModule.COMMANDS,
+        path: async () => (await import('@feature/auction')).AuctionModule
     },
     /*
     {

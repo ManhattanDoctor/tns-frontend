@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Nickname } from '@common/platform';
 import { NicknameAddedEvent } from '@common/platform/transport';
 import { map, takeUntil } from 'rxjs';
+import { TransportSocket } from '@ts-core/socket-client';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -17,12 +18,12 @@ export class NicknameMapCollection extends PaginableDataSourceMapCollection<Nick
     //
     // --------------------------------------------------------------------------
 
-    constructor(private api: Client, socket: ApiSocket) {
+    constructor(private api: Client, socket: TransportSocket) {
         super('id');
+        
         this.sort.created = false;
         socket.getDispatcher<NicknameAddedEvent>(NicknameAddedEvent.NAME)
             .pipe(
-                map(item => item.data),
                 takeUntil(this.destroyed)
             ).subscribe(() => this.reload());
     }

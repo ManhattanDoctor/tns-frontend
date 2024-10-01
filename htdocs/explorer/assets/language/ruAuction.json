@@ -1,14 +1,30 @@
 {
     "auction": {
+        "uid": "UID",
         "auction": "Аукцион",
         "auctions": "Аукционы",
-        "price": "Последняя ставка",
+        "price": "Последняя цена",
         "nickname": "⇛nickname.nickname",
+        "parentUid": "⇛nickname.parentUid",
+        "bidderUid": "Последняя ставка",
+        "initiatorUid": "Создатель",
         "created": "Создан",
         "type": {
             "type": "Тип",
             "PRIMARY": "Первичный",
             "SECONDARY": "Вторичный"
+        },
+        "add": {
+            "primary": "Добавить первичный аукцион",
+            "secondary": "Добавить вторичный аукцион",
+            "confirmation": "Вы уверены, что хотите создать аукцион?"
+        },
+        "check": {
+            "check": "Проверить окончание"
+        },
+        "bid": {
+            "bid": "Сделать ставку",
+            "confirmation": "Вы уверены, что хотите сделать ставку?"
         },
         "status": {
             "status": "Статус",
