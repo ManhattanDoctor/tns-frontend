@@ -7,9 +7,9 @@ import { TransportLazyModule } from '@ts-core/angular';
 import { Transport } from '@ts-core/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { UserAddHandler, UserOpenHandler } from './transport/handler';
-import { UserAddCommand, UserOpenCommand } from './transport';
-import { UserAddComponent, UserContainerComponent, UserDetailsComponent } from './component';
+import { UserAddHandler, UserEditHandler, UserOpenHandler } from './transport/handler';
+import { UserAddCommand, UserEditCommand, UserOpenCommand } from './transport';
+import { UserAddComponent, UserContainerComponent, UserDetailsComponent, UserEditComponent } from './component';
 
 //--------------------------------------------------------------------------
 //
@@ -18,7 +18,7 @@ import { UserAddComponent, UserContainerComponent, UserDetailsComponent } from '
 //--------------------------------------------------------------------------
 
 const providers = [];
-const declarations = [UserAddComponent, UserContainerComponent, UserDetailsComponent];
+const declarations = [UserAddComponent, UserContainerComponent, UserEditComponent, UserDetailsComponent];
 
 @NgModule({
     imports: [CommonModule, MatButtonModule, MatFormFieldModule, MatProgressBarModule, MatSelectModule, SharedModule],
@@ -34,7 +34,7 @@ export class UserModule extends TransportLazyModule<UserModule> {
     //--------------------------------------------------------------------------
 
     public static ID = 'UserModule';
-    public static COMMANDS = [UserAddCommand.NAME, UserOpenCommand.NAME];
+    public static COMMANDS = [UserAddCommand.NAME, UserOpenCommand.NAME, UserEditCommand.NAME];
 
     //--------------------------------------------------------------------------
     //
@@ -42,7 +42,7 @@ export class UserModule extends TransportLazyModule<UserModule> {
     //
     //--------------------------------------------------------------------------
 
-    constructor(reference: NgModuleRef<UserModule>, transport: Transport, add: UserAddHandler, open: UserOpenHandler) {
+    constructor(reference: NgModuleRef<UserModule>, transport: Transport, add: UserAddHandler, open: UserOpenHandler, edit: UserEditHandler) {
         super(reference, transport);
     }
 

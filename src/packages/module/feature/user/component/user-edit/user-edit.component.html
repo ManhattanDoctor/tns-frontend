@@ -1,0 +1,41 @@
+<div class="d-flex flex-shrink-0 align-items-center p-3">
+    <p class="mat-headline-1 flex-grow-1 text-one-line mouse-inactive" vi-translate="user.edit.edit"></p>
+
+    <button class="flex-shrink-0" mat-raised-button color="primary" [disabled]="isDisabled || form.invalid" (click)="submit()">
+        <span vi-translate="general.submit"></span>
+    </button>
+</div>
+
+<mat-progress-bar class="border-line flex-shrink-0" [mode]="isDisabled ? 'indeterminate' : 'determinate'"></mat-progress-bar>
+
+<form
+    class="flex-grow-1 px-3 pt-3 pb-2 row g-0 vertical-scroll-only"
+    #form="ngForm"
+    autocomplete="off"
+    (keyup.enter)="form.invalid || isDisabled ? $event.stopPropagation() : submit()"
+>
+    <div class="col-12">
+        <mat-form-field class="d-block">
+            <input #userUidInput="ngModel" matInput name="to" [(ngModel)]="userUid" type="text" [pattern]="uidPattern" />
+            <mat-label vi-translate="user.user"></mat-label>
+            <mat-error *ngIf="!(userUidInput.valid || !userUidInput.touched)" [innerHTML]="userUidInput.errors | viNgModelError"></mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-12">
+        <mat-form-field class="d-block">
+            <mat-placeholder vi-translate="user.role.roles"></mat-placeholder>
+            <mat-select #rolesInput="ngModel" name="roles" [(ngModel)]="roles" multiple>
+                <mat-select-trigger>
+                    <div class="d-flex text-one-line align-items-center">
+                        <span class="me-2" vi-translate="general.selected"></span>
+                        <span [innerHTML]="roles.length"></span>
+                    </div>
+                </mat-select-trigger>
+                <mat-option *ngFor="let item of rolesAll" [value]="item" [innerHTML]="'user.role.type.' + item | viTranslate"></mat-option>
+            </mat-select>
+            <mat-error *ngIf="!(rolesInput.valid || !rolesInput.touched)" [innerHTML]="rolesInput.errors | viNgModelError"></mat-error>
+        </mat-form-field>
+    </div>
+    
+</form>

@@ -1,6 +1,7 @@
 {
     "general": {
         "submit": "Отправить",
+        "selected": "Выбрано",
         "header": "TNS",
         "footer": "TNS Foundation"
     },
