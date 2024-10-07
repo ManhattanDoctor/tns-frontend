@@ -1,5 +1,6 @@
 import { CdkTableColumnMenu, ICdkTableColumn, ICdkTableSettings } from '@ts-core/angular-material';
 import { IPagination, PaginableDataSourceMapCollection } from '@ts-core/common';
+import { CoinUtil } from '@hlf-core/common';
 import { Client } from '@common/platform/api';
 import { PipeService } from '@core/service';
 import { Injectable } from '@angular/core';
@@ -59,7 +60,7 @@ export class CoinTableSettings implements ICdkTableSettings<Coin> {
         this.columns.push({
             name: 'coinId',
             headerId: 'coin.coinId.coinId',
-            format: item => item.coinId
+            format: item => pipe.coinId.transform(item.uid)
         })
         this.columns.push({
             name: 'inUse',

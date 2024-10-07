@@ -11,6 +11,7 @@ import { TransportSocket } from '@ts-core/socket-client';
 import { filter, map, takeUntil } from 'rxjs';
 import { CoinBalanceChangedEvent } from '@common/platform/transport';
 import { CoinOpenCommand } from '@feature/coin/transport';
+import { Variables as AuctionVariables} from '@common/hlf/auction';
 import * as _ from 'lodash';
 
 @Component({
@@ -57,7 +58,7 @@ export class CoinBalancesComponent extends DestroyableContainer {
 
     private commitCoinUidProperties(): void {
         this.settings = new CoinBalanceObjectTableSettings(this.pipe, this.hlfObject);
-        // this.items.conditions.coinUid = this.coinUid;
+        this.items.conditions.coinUid = AuctionVariables.coin.uid;
         this.items.reload();
     }
 

@@ -17,7 +17,7 @@ export class CoinBalanceMapCollection extends PaginableDataSourceMapCollection<C
     // --------------------------------------------------------------------------
 
     constructor(private api: Client) {
-        super(`uid`);
+        super('id');
         this.sort.total = false;
     }
 
@@ -37,7 +37,7 @@ export class CoinBalanceMapCollection extends PaginableDataSourceMapCollection<C
 
     protected parseItem(item: CoinBalance): CoinBalance {
         let value = TransformUtil.toClass(CoinBalance, item);
-        value.uid = `${item.id}_${item.uid}`;
+        // value.id = `${item.id}_${item.uid}` as any;
         return value;
     }
 }
@@ -119,9 +119,9 @@ export class CoinBalanceObjectTableSettings implements ICdkTableSettings<CoinBal
             format: async item => await hlfObject.picture(item.uid)
         })
         this.columns.push({
-            name: 'objectUid',
+            name: 'uid',
             isAsync: true,
-            headerId: 'coin.objectUid',
+            headerId: 'coin.uid',
             format: async item => await hlfObject.name(item.uid)
         })
         this.columns.push({

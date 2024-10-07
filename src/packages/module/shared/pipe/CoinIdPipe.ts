@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DestroyableContainer } from '@ts-core/common';
+import { DestroyableContainer, getUid } from '@ts-core/common';
 import { LanguageService } from '@ts-core/frontend';
 import { CoinUtil } from '@hlf-core/common';
 import * as _ from 'lodash';

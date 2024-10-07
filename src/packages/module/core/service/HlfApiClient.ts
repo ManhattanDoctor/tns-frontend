@@ -1,11 +1,9 @@
-import { Logger, ITransportCommand, ITransportCommandOptions } from '@ts-core/common';
+import { Logger, ITransportCommand, ITransportCommandOptions, DateUtil } from '@ts-core/common';
 import { ILedgerRequestRequest, LedgerApiClient } from '@hlf-explorer/common';
 import { SignerService } from '@core/service';
 import * as _ from 'lodash';
 
 export class HlfApiClient extends LedgerApiClient {
-
-
 
     // --------------------------------------------------------------------------
     //
@@ -15,6 +13,7 @@ export class HlfApiClient extends LedgerApiClient {
 
     constructor(logger: Logger, private signer: SignerService) {
         super(logger);
+        this.settings.timeout = DateUtil.MILLISECONDS_MINUTE;
         this.settings.isHandleError = this.settings.isHandleLoading = true;
     }
 

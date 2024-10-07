@@ -1,6 +1,6 @@
 <div class="d-flex flex-shrink-0 align-items-center py-3 ps-1 pe-3 text-base">
     <img class="border rounded flex-shrink-0 me-3 ms-2" style="width: 32px; height: 32px" [picture-gravatar]="item?.uid" />
-    <p class="mat-subtitle-2 flex-grow-1 text-one-line mouse-inactive" [innerHTML]="item?.coinId"></p>
+    <p class="mat-subtitle-2 flex-grow-1 text-one-line mouse-inactive" [innerHTML]="item?.uid | coinId"></p>
 </div>
 
 <vi-tab-group class="d-block flex-shrink-0 border-top border-bottom" [list]="tabs"></vi-tab-group>

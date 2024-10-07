@@ -43,7 +43,7 @@ export class CoinAmountPipe extends DestroyableContainer implements PipeTransfor
             return PrettifyPipe.EMPTY_SYMBOL;
         }
         let coinUid = !_.isNil(coin['coinUid']) ? coin['coinUid'] : coin['uid'];
-        let value = this.finance.transform(CoinUtil.fromCent(amount, coin.decimals), '0,0.[000000000000000000]');
+        let value = this.finance.transform(CoinUtil.fromCent(amount, CoinUtil.getCoinDecimals(coinUid)), '0,0.[000000000000000000]');
         return !isNeedCoinId ? value : `${value} ${this.coinId.transform(coinUid)}`;
     }
 
